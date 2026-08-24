@@ -1,0 +1,16 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+<div class="container py-5">
+    <div class="card shadow-sm border-0 p-4 col-md-6 mx-auto text-center">
+        <h4 class="mb-4 text-danger">⚠️ Confirmation de suppression</h4>
+        <p>Êtes-vous absolument sûr de vouloir supprimer le projet <strong>{{ projet.nom }}</strong> ?</p>
+        <p class="text-muted small">Cette action supprimera également tous les éléments (rapports, livrables) associés.</p>
+        
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger w-100">Oui, supprimer définitivement</button>
+            <a href="{% url 'detail_projet' projet.id %}" class="btn btn-outline-secondary w-100 mt-2">Annuler</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

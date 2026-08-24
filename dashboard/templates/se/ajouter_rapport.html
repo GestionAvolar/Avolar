@@ -1,0 +1,15 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="card shadow-sm p-4">
+        <h4 class="text-success"><i class="bi bi-file-earmark-check"></i> Nouveau Rapport de Mission</h4>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success">Enregistrer le Rapport</button>
+            <a href="{% url 'se_home' %}" class="btn btn-secondary">Retour</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

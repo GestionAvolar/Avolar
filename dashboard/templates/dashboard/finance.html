@@ -1,0 +1,41 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<h2 class="mb-5 text-success fw-bold">Comptabilité AVOLAR</h2>
+<div class="card border-0 shadow-sm rounded-4 mb-3 hover-effect">
+    <div class="card-body d-flex align-items-center p-3">
+        <div class="bg-light p-3 rounded-3 me-3">
+            <i class="bi bi-receipt fs-4 text-success"></i>
+        </div>
+        <div>
+            <h6 class="mb-0 fw-bold">Pièces Justificatives</h6>
+            <small class="text-muted">Enregistrer les justificatifs Avolar</small>
+        </div>
+        <a href="{% url 'ajouter_justificatif' %}" class="btn btn-sm btn-success ms-auto rounded-pill px-3">
+            Ouvrir
+        </a>
+    </div>
+</div>
+<div class="row g-4">
+    <div class="col-md-4">
+        <a href="{% url 'ajouter_entree' %}" class="btn btn-success btn-lg w-100 p-5 shadow">
+            <div style="font-size: 3rem;">📥</div>
+            <span class="fs-4">Enregistrer un bon d'Entrée</span>
+        </a>
+    </div>
+    
+    <div class="col-md-4">
+        <a href="{% url 'ajouter_sortie' %}" class="btn btn-danger btn-lg w-100 p-5 shadow">
+            <div style="font-size: 3rem;">📤</div>
+            <span class="fs-4">Enregistrer un bon de Sortie</span>
+        </a>
+    </div>
+    
+    <div class="col-md-4">
+        <a href="{% url 'journal_caisse' %}" class="btn btn-primary btn-lg w-100 p-5 shadow">
+            <div style="font-size: 3rem;">📖</div>
+            <span class="fs-4">Journal de Caisse</span>
+        </a>
+    </div>
+</div>
+{% endblock %}

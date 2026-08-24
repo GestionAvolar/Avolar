@@ -1,0 +1,11 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+<h2 class="text-success fw-bold mb-4">🛠 Ajouter un Matériel</h2>
+<div class="card p-4 shadow-sm border-0">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Enregistrer le matériel</button>
+    </form>
+</div>
+{% endblock %}

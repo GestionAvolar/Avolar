@@ -1,0 +1,25 @@
+{% extends 'dashboard/base.html' %}
+{% block page_title %}Affectation : {{ consultant.nom_complet }}{% endblock %}
+
+{% block content %}
+<div class="card p-4 shadow-sm">
+    <h3 class="text-halo mb-4">Affecter {{ consultant.nom_complet }} à un projet</h3>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            {{ form.projet.label_tag }} {{ form.projet }}
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">{{ form.fonction.label_tag }} {{ form.fonction }}</div>
+            <div class="col-md-6 mb-3">{{ form.site.label_tag }} {{ form.site }}</div>
+        </div>
+        <div class="mb-3">{{ form.salaire.label_tag }} {{ form.salaire }}</div>
+        <div class="mb-3">{{ form.taches_principales.label_tag }} {{ form.taches_principales }}</div>
+        
+        <div class="mt-4">
+            <button type="submit" class="btn btn-success px-4">Valider l'affectation</button>
+            <a href="{% url 'liste_consultants' %}" class="btn btn-secondary px-4">Annuler</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

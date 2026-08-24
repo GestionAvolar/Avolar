@@ -1,0 +1,105 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-success">{{ projet.nom }}</h2>
+        <a href="{% url 'liste_projets' %}" class="btn btn-outline-secondary btn-sm">← Retour à la liste</a>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm p-4 mb-4">
+                <h4 class="text-primary mb-3">À propos du projet</h4>
+                <p class="text-muted">{{ projet.description|default:"Aucune description disponible." }}</p>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <p class="mb-1 fw-bold text-dark">Zone d'intervention</p>
+                        <p class="text-muted">{{ projet.zone_intervention }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-sm border-0 p-4">
+                <h4 class="mb-4">Historique, Rapports et Livrables</h4>
+                <div class="list-group list-group-flush">
+                    {% for elem in projet.elements.all %}
+                    <div class="list-group-item border-0 border-bottom py-3">
+                        <div class="d-flex w-100 justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-1 fw-bold">{{ elem.titre }}</h6>
+                                <span class="badge bg-secondary">{{ elem.get_type_element_display }}</span>
+                                <small class="text-muted ms-2">{{ elem.date_ajout|date:"d M Y" }}</small>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <a href="{% url 'modifier_element' elem.id %}" class="btn btn-sm btn-outline-warning"><i class="bi bi-pencil"></i></a>
+                                <a href="{% url 'supprimer_element' elem.id %}" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a>
+                            </div>
+                        </div>
+                        <p class="mb-2 mt-2 text-muted small">{{ elem.description }}</p>
+                        {% if elem.fichier %}
+                            <a href="{{ elem.fichier.url }}" class="btn btn-sm btn-primary" target="_blank">
+                                <i class="bi bi-download"></i> Télécharger
+                            </a>
+                        {% endif %}
+                    </div>
+                    {% empty %}
+                    <p class="text-muted italic">Aucun élément ajouté pour le moment.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm bg-light p-4 mb-4">
+                <h5 class="mb-3">Informations clés</h5>
+                <ul class="list-unstyled mb-4">
+                    <li class="mb-2"><strong>Bailleur :</strong> {{ projet.bailleur_fond }}</li>
+                    <li class="mb-2"><strong>N° Contrat :</strong> {{ projet.no_contrat }}</li>
+                    <li class="mb-3 fs-5 text-success"><strong>Budget :</strong> {{ projet.cout_global|floatformat:2 }} $</li>
+                </ul>
+                <div class="d-grid gap-2">
+                    <a href="{% url 'modifier_projet' projet.id %}" class="btn btn-outline-primary">Modifier Projet</a>
+                    <a href="{% url 'supprimer_projet' projet.id %}" class="btn btn-danger">Supprimer Projet</a>
+                </div>
+            </div>
+            <div class="card border-0 shadow-sm p-4 mb-4">
+    <h4 class="text-primary mb-3">Consultants affectés</h4>
+    {% if affectations %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Fonction</th>
+                        <th>Site</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for aff in affectations %}
+                    <tr>
+                        <td>{{ aff.consultant.nom }} {{ aff.consultant.prenom }}</td>
+                        <td>{{ aff.fonction }}</td>
+                        <td>{{ aff.site }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="text-muted">Aucun consultant affecté à ce projet pour le moment.</p>
+    {% endif %}
+</div>
+
+            <div class="card shadow-sm border-0 p-4">
+                <h5 class="mb-3 text-success">Ajouter un élément</h5>
+                <form method="post" enctype="multipart/form-data" action="{% url 'ajouter_element' projet.id %}">
+                    {% csrf_token %}
+                    <div class="mb-3">{{ element_form.as_p }}</div>
+                    <button type="submit" class="btn btn-success w-100"><i class="bi bi-plus-lg"></i> Enregistrer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

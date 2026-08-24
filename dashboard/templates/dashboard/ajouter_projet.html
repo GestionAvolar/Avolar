@@ -1,0 +1,36 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="card p-4 shadow-sm">
+        <h2 class="mb-4">Ajouter un nouveau projet</h2>
+        
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="row">
+                <div class="col-md-6">{{ form.nom.label_tag }} {{ form.nom }}</div>
+                <div class="col-md-6">{{ form.logo.label_tag }} {{ form.logo }}</div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">{{ form.bailleur_fond.label_tag }} {{ form.bailleur_fond }}</div>
+                <div class="col-md-6">{{ form.no_contrat.label_tag }} {{ form.no_contrat }}</div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">{{ form.cout_global.label_tag }} {{ form.cout_global }}</div>
+                <div class="col-md-6">{{ form.zone_intervention.label_tag }} {{ form.zone_intervention }}</div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">{{ form.date_debut.label_tag }} {{ form.date_debut }}</div>
+                <div class="col-md-6">{{ form.date_fin.label_tag }} {{ form.date_fin }}</div>
+            </div>
+
+            <button type="submit" class="btn btn-success mt-3 px-4">Enregistrer le projet</button>
+            <a href="{% url 'liste_projets' %}" class="btn btn-secondary mt-3">Annuler</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

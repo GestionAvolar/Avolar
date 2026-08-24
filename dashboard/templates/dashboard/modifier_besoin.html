@@ -1,0 +1,78 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="card shadow-sm p-4">
+        <h4 class="text-warning mb-4"><i class="bi bi-pencil-square"></i> Modifier l'État de Besoin : {{ besoin.no_etat_besoin }}</h4>
+        
+        <form method="POST" id="besoin-form">
+            {% csrf_token %}
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="fw-bold">Date :</label>
+                    {{ form.date }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="fw-bold">Projet / Demandeur :</label>
+                    {{ form.projet_demandeur }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="fw-bold">Destination :</label>
+                    {{ form.destination }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="fw-bold">Statut :</label>
+                    <div class="form-check form-switch mt-2">
+                        {{ form.valide }}
+                        <label class="form-check-label">Validé</label>
+                    </div>
+                </div>
+            </div>
+            
+            <hr class="my-4">
+            <h5>Articles associés</h5>
+            {{ article_formset.management_form }}
+            
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Désignation</th>
+                            <th>Qté</th>
+                            <th>Prix Unitaire</th>
+                            <th>Observation</th>
+                            <th>Supprimer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for form in article_formset %}
+                            {{ form.id }} <tr>
+                                <td>{{ form.designation }}</td>
+                                <td>{{ form.quantite }}</td>
+                                <td>{{ form.prix_unitaire }}</td>
+                                <td>{{ form.observation }}</td>
+                                <td class="text-center">
+                                    {% if form.instance.pk %}
+                                        {{ form.DELETE }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="mt-4">
+                <button type="submit" class="btn btn-warning px-4">Enregistrer les modifications</button>
+                <a href="{% url 'liste_etats_besoin' %}" class="btn btn-secondary px-4">Annuler</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    /* Optionnel : petite mise en forme pour le switch */
+    .form-switch .form-check-input { width: 3em; height: 1.5em; }
+</style>
+{% endblock %}

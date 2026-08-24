@@ -1,0 +1,56 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Gestion des Offres & Services</h2>
+<a href="{% url 'ajouter_offre' %}" class="btn btn-success">+ Nouvelle Offre</a>
+    </div>
+
+    <div class="card p-4">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Projet</th>
+                    <th>Bailleur</th>
+                    <th>Durée</th>
+                    <th>Statut</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for offre in offres %}
+                <tr class="{% if offre.est_soumise %}table-secondary{% endif %}">
+                    <td>{{ offre.nom_projet }}</td>
+                    <td>{{ offre.bailleur_fond }}</td>
+                    <td>{{ offre.duree_mission }}</td>
+                    <td>
+                        {% if offre.est_validee %}
+                            <span class="badge bg-success">Validée</span>
+                        {% elif offre.est_soumise %}
+                            <span class="badge bg-info">Soumise</span>
+                        {% else %}
+                            <span class="badge bg-warning">En cours</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <form method="POST" action="#"> {% csrf_token %}
+                            {% if not offre.est_soumise %}
+                                <button type="submit" name="soumettre" class="btn btn-sm btn-outline-info">Soumettre</button>
+                            {% endif %}
+                            {% if offre.est_soumise and not offre.est_validee %}
+                                <button type="submit" name="valider" class="btn btn-sm btn-outline-success">Valider</button>
+                            {% endif %}
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center">Aucune offre disponible pour le moment.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

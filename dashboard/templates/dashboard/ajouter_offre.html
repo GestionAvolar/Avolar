@@ -1,0 +1,54 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-header bg-white border-0 pt-4 pb-0">
+            <h4 class="text-success fw-bold"><i class="bi bi-plus-circle-fill"></i> Nouvelle Offre</h4>
+            <p class="text-muted small">Remplissez les informations ci-dessous pour soumettre une nouvelle offre.</p>
+        </div>
+        
+        <div class="card-body p-4">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label text-secondary fw-bold">Nom du Projet</label>
+                        {{ form.nom_projet }}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label text-secondary fw-bold">Bailleur de fonds</label>
+                        {{ form.bailleur_fond }}
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label text-secondary fw-bold">Durée de la mission</label>
+                        {{ form.duree_mission }}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label text-secondary fw-bold">Zone d'intervention</label>
+                        {{ form.zone_intervention }}
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label text-secondary fw-bold">Termes de référence</label>
+                        {{ form.terme_reference }}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label text-secondary fw-bold">Document Proposition</label>
+                        {{ form.document_proposition }}
+                    </div>
+                </div>
+
+                <div class="mt-4 pt-3 border-top d-flex justify-content-end gap-2">
+                    <a href="{% url 'liste_offres' %}" class="btn btn-light px-4">Annuler</a>
+                    <button type="submit" class="btn btn-success px-4">
+                        <i class="bi bi-save"></i> Enregistrer l'offre
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4 mb-5">
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-success text-white py-3">
+            <h3 class="mb-0">⚙️ Configuration du Formulaire de Terrain</h3>
+        </div>
+        <div class="card-body p-4">
+            <form method="POST">
+                {% csrf_token %}
+                
+                <!-- Informations générales du formulaire -->
+                <h4 class="text-primary mb-3">1. Informations générales</h4>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Titre du formulaire</label>
+                    {{ form.titre }}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Description</label>
+                    {{ form.description }}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Projet associé</label>
+                    {{ form.projet }}
+                </div>
+
+                <hr class="my-4">
+
+                <h4 class="text-primary mb-3">2. Questions et Champs du formulaire</h4>
+                {{ formset.management_form }}
+                
+                <div id="formset-container">
+                    {% for f_form in formset %}
+                        <div class="card p-3 mb-3 border bg-light shadow-sm champ-row">
+                            {{ f_form.id }}
+                            <div class="row">
+                                <div class="col-md-6 mb-2">
+                                    <label class="form-label fw-bold">Intitulé de la question</label>
+                                    {{ f_form.libelle_question }}
+                                </div>
+                                <div class="col-md-4 mb-2">
+                                    <label class="form-label fw-bold">Type de réponse</label>
+                                    {{ f_form.type_champ }}
+                                </div>
+                                <div class="col-md-2 mb-2">
+                                    <label class="form-label fw-bold">Ordre</label>
+                                    {{ f_form.ordre }}
+                                </div>
+                            </div>
+
+                            <!-- Zone dédiée aux options / assertions (affichée dynamiquement) -->
+                            <div class="row mt-2 options-group">
+                                <div class="col-md-12">
+                                    <label class="form-label text-danger fw-bold">Options / Assertions (Séparées par des virgules)</label>
+                                    {{ f_form.options }}
+                                    <small class="text-muted">Exemple : Favorable, Neutre, Défavorable (Pour choix unique ou cases à cocher)</small>
+                                </div>
+                            </div>
+
+                            <div class="form-check mt-3">
+                                {{ f_form.est_obligatoire }}
+                                <label class="form-check-label fw-bold">Champ obligatoire</label>
+                            </div>
+
+                            {% if formset.can_delete %}
+                                <div class="form-check mt-2 text-end">
+                                    {{ f_form.DELETE }}
+                                    <label class="form-check-label text-danger">Supprimer cette question</label>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Bouton pour ajouter une nouvelle ligne de question -->
+                <button type="button" id="add-form-btn" class="btn btn-outline-primary mb-4 w-100">
+                    ➕ Ajouter une autre question
+                </button>
+
+                <button type="submit" class="btn btn-success btn-lg w-100 shadow-sm">💾 Enregistrer le formulaire et ses options</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modèle caché pour le clonage d'une nouvelle ligne par JavaScript -->
+<div id="empty-form-template" style="display: none;">
+    <div class="card p-3 mb-3 border bg-light shadow-sm champ-row">
+        <div class="row">
+            <div class="col-md-6 mb-2">
+                <label class="form-label fw-bold">Intitulé de la question</label>
+                {{ formset.empty_form.libelle_question }}
+            </div>
+            <div class="col-md-4 mb-2">
+                <label class="form-label fw-bold">Type de réponse</label>
+                {{ formset.empty_form.type_champ }}
+            </div>
+            <div class="col-md-2 mb-2">
+                <label class="form-label fw-bold">Ordre</label>
+                {{ formset.empty_form.ordre }}
+            </div>
+        </div>
+
+        <div class="row mt-2 options-group" style="display: none;">
+            <div class="col-md-12">
+                <label class="form-label text-danger fw-bold">Options / Assertions (Séparées par des virgules)</label>
+                {{ formset.empty_form.options }}
+                <small class="text-muted">Exemple : Option 1, Option 2, Option 3</small>
+            </div>
+        </div>
+
+        <div class="form-check mt-3">
+            {{ formset.empty_form.est_obligatoire }}
+            <label class="form-check-label fw-bold">Champ obligatoire</label>
+        </div>
+    </div>
+</div>
+
+<!-- Script combiné : Gestion des options dynamiques & Ajout de lignes -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    function gererAffichageOptions() {
+        document.querySelectorAll('.champ-row').forEach(function(row) {
+            const selectType = row.querySelector('[name$="type_champ"]');
+            const optionsGroup = row.querySelector('.options-group');
+            
+            if (selectType && optionsGroup) {
+                const valeur = selectType.value;
+                if (valeur === 'choix_unique' || valeur === 'choix_multiple') {
+                    optionsGroup.style.display = 'block';
+                } else {
+                    optionsGroup.style.display = 'none';
+                }
+            }
+        });
+    }
+
+    // Appliquer au chargement
+    gererAffichageOptions();
+
+    // Appliquer lors d'un changement de type de champ
+    document.addEventListener('change', function(e) {
+        if (e.target && e.target.name && e.target.name.includes('type_champ')) {
+            gererAffichageOptions();
+        }
+    });
+
+    // Logique d'ajout dynamique d'une ligne de question (Formset Django)
+    const addBtn = document.getElementById('add-form-btn');
+    const totalForms = document.getElementById('id_champs-TOTAL_FORMS');
+    const container = document.getElementById('formset-container');
+    const templateHtml = document.getElementById('empty-form-template').innerHTML;
+
+    if (addBtn) {
+        addBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            let formCount = parseInt(totalForms.value);
+            
+            // Remplacer '__prefix__' par le nouvel index numérique
+            let newFormHtml = templateHtml.replace(/__prefix__/g, formCount);
+            
+            // Ajouter la nouvelle ligne dans le conteneur
+            container.insertAdjacentHTML('beforeend', newFormHtml);
+            
+            // Incrémenter le compteur total du formset Django
+            totalForms.value = formCount + 1;
+            
+            // Réactualiser l'affichage des options pour la nouvelle ligne
+            gererAffichageOptions();
+        });
+    }
+});
+</script>
+{% endblock %}

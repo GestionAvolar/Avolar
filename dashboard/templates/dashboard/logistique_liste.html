@@ -1,0 +1,14 @@
+<table class="table table-hover">
+    <thead>
+        <tr><th>N° État</th><th>Date</th><th>Statut</th></tr>
+    </thead>
+    <tbody>
+        {% for eb in etats_besoin %}
+        <tr class="{% if eb.valide %}table-secondary text-muted{% endif %}">
+            <td>{{ eb.no_etat_besoin }}</td>
+            <td>{{ eb.date }}</td>
+            <td>{% if eb.valide %}✅ Validé{% else %}⏳ En attente{% endif %}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

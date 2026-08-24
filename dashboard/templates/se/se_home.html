@@ -1,0 +1,40 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <h2 class="text-success"><i class="bi bi-search"></i> Suivi & Évaluation</h2>
+    <hr>
+    
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card p-4 hover-effect">
+                <h5 class="mb-3"><i class="bi bi-file-earmark-text"></i> Termes de Référence</h5>
+                <div class="d-grid gap-2">
+                    <a href="{% url 'ajouter_tdr' %}" class="btn btn-success">Ajouter un TDR</a>
+                    <a href="{% url 'liste_tdr' %}" class="btn btn-outline-secondary">Voir la liste</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card p-4 hover-effect">
+                <h5 class="mb-3"><i class="bi bi-file-earmark-check"></i> Rapports de Missions</h5>
+                <div class="d-grid gap-2">
+                    <a href="{% url 'ajouter_rapport' %}" class="btn btn-success">Ajouter un Rapport</a>
+                    <a href="{% url 'liste_rapports' %}" class="btn btn-outline-secondary">Voir la liste</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card p-4 hover-effect">
+                <h5 class="mb-3"><i class="bi bi-calendar-event"></i> Planification</h5>
+                <div class="d-grid gap-2">
+                    <a href="{% url 'ajouter_planification' %}" class="btn btn-success">Nouvelle Planification</a>
+                    <a href="{% url 'liste_planifications' %}" class="btn btn-outline-secondary">Voir le planning</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

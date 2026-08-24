@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4 mb-5">
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white py-3">
+            <h3 class="mb-0">📋 {{ formulaire.titre }}</h3>
+            <p class="mb-0 text-white-50 mt-1">{{ formulaire.description }}</p>
+        </div>
+        <div class="card-body p-4">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                {% for champ in champs %}
+                    <div class="mb-4 p-3 border rounded bg-light shadow-sm">
+                        <label class="form-label fw-bold text-dark">
+                            {{ forloop.counter }}. {{ champ.libelle_question }}
+                            {% if champ.est_obligatoire %}<span class="text-danger">*</span>{% endif %}
+                        </label>
+
+                        <!-- 1. TEXTE COURT -->
+                        {% if champ.type_champ == 'texte' %}
+                            <input type="text" name="champ_{{ champ.id }}" class="form-control" {% if champ.est_obligatoire %}required{% endif %}>
+
+                        <!-- 2. TEXTE LONG / PARAGRAPHE -->
+                        {% elif champ.type_champ == 'texte_long' %}
+                            <textarea name="champ_{{ champ.id }}" class="form-control" rows="3" {% if champ.est_obligatoire %}required{% endif %}></textarea>
+
+                        <!-- 3. NOMBRE / CHIFFRE -->
+                        {% elif champ.type_champ == 'nombre' %}
+                            <input type="number" name="champ_{{ champ.id }}" class="form-control" {% if champ.est_obligatoire %}required{% endif %}>
+
+                        <!-- 4. DATE -->
+                        {% elif champ.type_champ == 'date' %}
+                            <input type="date" name="champ_{{ champ.id }}" class="form-control" {% if champ.est_obligatoire %}required{% endif %}>
+
+                        <!-- 5. HEURE -->
+                        {% elif champ.type_champ == 'heure' %}
+                            <input type="time" name="champ_{{ champ.id }}" class="form-control" {% if champ.est_obligatoire %}required{% endif %}>
+
+                        <!-- 6. CHOIX UNIQUE (Menu déroulant basé sur les options séparées par des virgules) -->
+                        {% elif champ.type_champ == 'choix_unique' %}
+                            <select name="champ_{{ champ.id }}" class="form-select" {% if champ.est_obligatoire %}required{% endif %}>
+                                <option value="">-- Sélectionnez une option --</option>
+                                {% if champ.options %}
+                                    {% for opt in champ.options.split %}
+                                        <option value="{{ opt }}">{{ opt }}</option>
+                                    {% endfor %}
+                                {% endif %}
+                            </select>
+
+                        <!-- 7. CHOIX MULTIPLE (Cases à cocher générées depuis les options) -->
+                        {% elif champ.type_champ == 'choix_multiple' %}
+                            <div class="mt-2">
+                                <small class="text-muted d-block mb-2">Cochez une ou plusieurs options :</small>
+                                {% if champ.options %}
+                                    {% for opt in champ.options.split %}
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="champ_{{ champ.id }}" value="{{ opt }}" id="chk_{{ champ.id }}_{{ forloop.counter }}">
+                                            <label class="form-check-label" for="chk_{{ champ.id }}_{{ forloop.counter }}">
+                                                {{ opt }}
+                                            </label>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+
+                        <!-- 8. COORDONNÉES GPS -->
+                        {% elif champ.type_champ == 'gps' %}
+                            <div class="input-group">
+                                <input type="text" id="gps_{{ champ.id }}" name="champ_{{ champ.id }}" class="form-control" placeholder="Latitude, Longitude" readonly {% if champ.est_obligatoire %}required{% endif %}>
+                                <button type="button" class="btn btn-outline-primary" onclick="capturerGPS({{ champ.id }})">📍 Capturer position GPS</button>
+                            </div>
+                            <small id="status_gps_{{ champ.id }}" class="form-text text-muted">Cliquez pour enregistrer la position actuelle.</small>
+
+                        <!-- 9. PHOTO / SIGNATURE -->
+                        {% elif champ.type_champ == 'photo' or champ.type_champ == 'signature' %}
+                            <input type="file" name="champ_{{ champ.id }}" class="form-control" accept="image/*" capture="environment" {% if champ.est_obligatoire %}required{% endif %}>
+                            <small class="text-muted">Prenez une photo ou importez un fichier depuis l'appareil.</small>
+
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                <!-- Boutons d'action (Annuler + Soumettre) -->
+                <div class="d-flex justify-content-between align-items-center mt-4">
+                    <a href="{% url 'liste_formulaires_terrain' %}" class="btn btn-secondary btn-lg px-4 shadow-sm">
+                        <i class="bi bi-x-circle me-1"></i> Annuler
+                    </a>
+                    <button type="submit" class="btn btn-success btn-lg px-5 shadow-sm">
+                        <i class="bi bi-check-circle me-1"></i> Soumettre les données de terrain
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Script de capture GPS pour l'agent de terrain -->
+<script>
+function capturerGPS(champId) {
+    const statusDiv = document.getElementById('status_gps_' + champId);
+    const inputField = document.getElementById('gps_' + champId);
+
+    if (navigator.geolocation) {
+        statusDiv.innerHTML = "⏳ Recherche des satellites en cours...";
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+                const lat = position.coords.latitude.toFixed(6);
+                const lon = position.coords.longitude.toFixed(6);
+                const precision = position.coords.accuracy.toFixed(1);
+                
+                inputField.value = `${lat}, ${lon}`;
+                statusDiv.innerHTML = `✅ Position capturée avec succès (Précision : ${precision} m).`;
+                statusDiv.className = "form-text text-success fw-bold";
+            }, 
+            function(error) {
+                statusDiv.innerHTML = "❌ Erreur de géolocalisation : " + error.message;
+                statusDiv.className = "form-text text-danger";
+            },
+            { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+        );
+    } else {
+        alert("La géolocalisation n'est pas supportée par votre navigateur.");
+    }
+}
+</script>
+{% endblock %}

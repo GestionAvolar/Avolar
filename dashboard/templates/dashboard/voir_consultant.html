@@ -1,0 +1,59 @@
+{% extends 'dashboard/base.html' %}
+{% block page_title %}Profil de {{ consultant.nom_complet }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="text-halo">Détails du Consultant : {{ consultant.nom_complet }}</h3>
+        <a href="{% url 'liste_consultants' %}" class="btn btn-secondary">Retour à la liste</a>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card p-4 mb-4 shadow-sm">
+                <h4 class="text-halo mb-3"><i class="bi bi-person-badge"></i> Informations Personnelles</h4>
+                <p><strong>Nom complet :</strong> {{ consultant.nom_complet }}</p>
+                <p><strong>Profession :</strong> {{ consultant.profession_base }}</p>
+                <p><strong>Études :</strong> {{ consultant.etudes|default:"Non renseigné" }}</p>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card p-4 mb-4 shadow-sm">
+                <h4 class="text-halo mb-3"><i class="bi bi-briefcase"></i> Projet & Affectation</h4>
+                {% if affectation %}
+                    <p><strong>Projet :</strong> {{ affectation.projet.nom }}</p>
+                    <p><strong>Fonction :</strong> {{ affectation.fonction }}</p>
+                    <p><strong>Site :</strong> {{ affectation.site }}</p>
+                    <p><strong>Salaire :</strong> {{ affectation.salaire }} $</p>
+                {% else %}
+                    <p class="text-muted"><em>Consultant actuellement disponible (non affecté).</em></p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="card p-4 shadow-sm">
+        <h4 class="text-halo mb-3"><i class="bi bi-file-earmark-text"></i> Curriculum Vitae</h4>
+        <div class="mb-4 p-3 bg-light border rounded">
+            {{ consultant.cv|linebreaks|default:"Aucun détail de CV renseigné." }}
+        </div>
+        
+        {% if consultant.cv_file %}
+            <a href="{{ consultant.cv_file.url }}" class="btn btn-primary" download>
+                <i class="bi bi-download"></i> Télécharger le fichier CV
+            </a>
+        {% else %}
+            <button class="btn btn-secondary" disabled>
+                <i class="bi bi-file-earmark-x"></i> Aucun fichier CV disponible
+            </button>
+        {% endif %}
+    </div>
+
+    <div class="mt-4">
+        <a href="{% url 'modifier_consultant' consultant.id %}" class="btn btn-warning">
+            <i class="bi bi-pencil"></i> Modifier le profil
+        </a>
+    </div>
+</div>
+{% endblock %}

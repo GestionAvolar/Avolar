@@ -1,0 +1,37 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="text-success"><i class="bi bi-list-task"></i> Liste des Rapports de Missions</h4>
+        <a href="{% url 'ajouter_rapport' %}" class="btn btn-success">+ Nouveau Rapport</a>
+    </div>
+
+    <div class="card shadow-sm">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Projet</th>
+                    <th>Zone</th>
+                    <th>Période</th>
+                    <th>Observation SE</th>
+                    <th>Fichier</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in rapports %}
+                <tr>
+                    <td>{{ r.projet }}</td>
+                    <td>{{ r.zone_intervention }}</td>
+                    <td>{{ r.date_debut|date:"d/m/Y" }} au {{ r.date_fin|date:"d/m/Y" }}</td>
+                    <td>{{ r.observation_se|truncatechars:50 }}</td>
+                    <td><a href="{{ r.fichier.url }}" target="_blank" class="btn btn-sm btn-outline-primary">Voir</a></td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="5" class="text-center">Aucun rapport disponible.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

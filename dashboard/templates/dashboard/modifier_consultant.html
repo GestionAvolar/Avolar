@@ -1,0 +1,24 @@
+{% extends 'dashboard/base.html' %}
+{% block page_title %}Modifier {{ consultant.nom_complet }}{% endblock %}
+
+{% block content %}
+<div class="card p-4">
+    <h3 class="text-halo mb-4">Modifier le profil : {{ consultant.nom_complet }}</h3>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            {{ form.nom_complet.label_tag }}
+            {{ form.nom_complet }}
+        </div>
+        <div class="mb-3">
+            {{ form.profession_base.label_tag }}
+            {{ form.profession_base }}
+        </div>
+        
+        <div class="mt-4">
+            <button type="submit" class="btn btn-warning px-4">Enregistrer les changements</button>
+            <a href="{% url 'liste_consultants' %}" class="btn btn-secondary px-4">Annuler</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

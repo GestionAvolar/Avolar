@@ -1,0 +1,18 @@
+{% extends 'dashboard/base.html' %}
+{% block page_title %}Supprimer Consultant{% endblock %}
+
+{% block content %}
+<div class="card p-4 shadow-sm text-center">
+    <h3 class="text-halo text-danger">Confirmation de suppression</h3>
+    <p>Êtes-vous certain de vouloir supprimer le consultant <strong>{{ consultant.nom_complet }}</strong> ?</p>
+    <p class="text-muted">Cette action est irréversible.</p>
+    
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mt-4">
+            <button type="submit" class="btn btn-danger px-4">Oui, supprimer</button>
+            <a href="{% url 'liste_consultants' %}" class="btn btn-secondary px-4">Annuler</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

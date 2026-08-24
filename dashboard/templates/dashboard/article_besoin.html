@@ -1,0 +1,21 @@
+<form id="besoinForm">
+    <input type="number" id="id_quantite" name="quantite" placeholder="Quantité">
+    <input type="number" id="id_prix_unitaire" name="prix_unitaire" placeholder="Prix Unitaire">
+    
+    <input type="text" id="id_prix_total" name="prix_total" readonly placeholder="Total">
+</form>
+
+<script>
+    const qte = document.getElementById('id_quantite');
+    const pu = document.getElementById('id_prix_unitaire');
+    const total = document.getElementById('id_prix_total');
+
+    function calculerTotal() {
+        const montant = parseFloat(qte.value) * parseFloat(pu.value);
+        total.value = isNaN(montant) ? 0 : montant.toFixed(2);
+    }
+
+    // Déclenche le calcul à chaque modification
+    qte.addEventListener('input', calculerTotal);
+    pu.addEventListener('input', calculerTotal);
+</script>

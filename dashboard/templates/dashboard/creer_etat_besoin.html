@@ -1,0 +1,75 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="card shadow-sm p-4">
+        <h4 class="text-success mb-4">Nouvel État de Besoin</h4>
+        <form method="POST" id="besoin-form">
+            {% csrf_token %}
+            
+            <div class="row">
+                {% for field in form %}
+                    <div class="col-md-6">{{ field.label_tag }} {{ field }}</div>
+                {% endfor %}
+            </div>
+            
+            <hr class="my-4">
+            <h5>Articles</h5>
+            {{ article_formset.management_form }}
+            
+            <div id="formset-container">
+                <div class="row mb-2 fw-bold text-muted">
+                    <div class="col-md-3">Désignation</div>
+                    <div class="col-md-2">Qté</div>
+                    <div class="col-md-2">Prix Unitaire</div>
+                    <div class="col-md-2">Prix Total</div> <div class="col-md-3">Observation</div>
+                </div>
+
+                {% for form in article_formset %}
+                    <div class="article-row row mb-2 {% if forloop.counter > 1 %}d-none{% endif %}">
+                        <div class="col-md-3">{{ form.designation }}</div>
+                        <div class="col-md-2">{{ form.quantite }}</div>
+                        <div class="col-md-2">{{ form.prix_unitaire }}</div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control prix-total" readonly value="0.00">
+                        </div>
+                        <div class="col-md-3">{{ form.observation }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+            
+            <button type="button" id="add-more" class="btn btn-outline-primary btn-sm mt-2">
+                <i class="bi bi-plus-circle"></i> Ajouter une ligne
+            </button>
+            
+            <div class="mt-4">
+                <button type="submit" class="btn btn-success px-4">Enregistrer l'état de besoin</button>
+                <a href="{% url 'liste_etats_besoin' %}" class="btn btn-secondary px-4">Annuler</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // 1. Ajouter des lignes
+    document.getElementById('add-more').addEventListener('click', function() {
+        const hiddenRow = document.querySelector('.article-row.d-none');
+        if (hiddenRow) {
+            hiddenRow.classList.remove('d-none');
+        }
+    });
+
+    // 2. Calcul automatique des lignes
+    document.getElementById('formset-container').addEventListener('input', function(e) {
+        // Vérifie si l'input modifié est une quantité ou un prix unitaire
+        if (e.target.name.includes('quantite') || e.target.name.includes('prix_unitaire')) {
+            const row = e.target.closest('.article-row');
+            const qte = parseFloat(row.querySelector('[name*="quantite"]').value) || 0;
+            const pu = parseFloat(row.querySelector('[name*="prix_unitaire"]').value) || 0;
+            const totalField = row.querySelector('.prix-total');
+            
+            totalField.value = (qte * pu).toFixed(2);
+        }
+    });
+</script>
+{% endblock %}

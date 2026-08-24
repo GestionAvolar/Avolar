@@ -1,0 +1,57 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<div class="container mt-4 mb-5">
+    <div class="card p-4 shadow-sm">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="text-success mb-1">📄 Détails de la soumission</h2>
+                <p class="text-muted mb-0">Formulaire : <strong>{{ soumission.formulaire.titre }}</strong></p>
+            </div>
+            <a href="{% url 'liste_toutes_soumissions' %}" class="btn btn-outline-secondary btn-sm">
+                ⬅️ Retour à la liste
+            </a>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="p-3 bg-light rounded-3">
+                    <p class="mb-1"><strong>Agent collecteur :</strong> {{ soumission.agent.username|default:"Anonyme" }}</p>
+                    <p class="mb-0"><strong>Date et heure :</strong> {{ soumission.date_soumission|date:"d/m/Y à H:i" }}</p>
+                </div>
+            </div>
+        </div>
+
+        <h4 class="mb-3 text-secondary">Réponses collectées :</h4>
+        
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped align-middle">
+                <thead class="table-success">
+                    <tr>
+                        <th style="width: 40%;">Question / Champ</th>
+                        <th style="width: 60%;">Réponse fournie</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for question, reponse in soumission.donnees_json.items %}
+                    <tr>
+                        <td><strong>{{ question }}</strong></td>
+                        <td>
+                            {% if reponse %}
+                                {{ reponse }}
+                            {% else %}
+                                <span class="text-muted fst-italic">Aucune réponse</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="2" class="text-center text-muted py-3">Aucune donnée enregistrée pour cette soumission.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

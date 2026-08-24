@@ -1,0 +1,45 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<div class="container mt-4 mb-5">
+    <div class="card p-4 shadow-sm">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="text-success">📊 Centralisation de toutes les soumissions</h2>
+            <a href="{% url 'liste_formulaires_terrain' %}" class="btn btn-outline-secondary btn-sm">
+                ⬅️ Retour aux formulaires
+            </a>
+        </div>
+        
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Date & Heure</th>
+                        <th>Formulaire</th>
+                        <th>Agent Collecteur</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for soumission in soumissions %}
+                    <tr>
+                        <td>{{ soumission.date_soumission|date:"d/m/Y H:i" }}</td>
+                        <td><strong>{{ soumission.formulaire.titre }}</strong></td>
+                        <td>{{ soumission.agent.username|default:"Anonyme" }}</td>
+                        <td class="text-end">
+                            <a href="{% url 'detail_soumission' soumission.pk %}" class="btn btn-info btn-sm text-white">
+                                <i class="bi bi-eye"></i> Voir les détails
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center text-muted py-4">Aucune soumission enregistrée pour le moment.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

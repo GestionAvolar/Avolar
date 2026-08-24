@@ -1,0 +1,56 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-success fw-bold">🛠 Inventaire du Matériel</h2>
+    <a href="{% url 'ajouter_materiel' %}" class="btn btn-success">+ Ajouter</a>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Référence</th>
+                    <th>Désignation</th>
+                    <th>État</th>
+                    <th>Date d'achat</th>
+                    <th>Imputation</th>
+                    <th class="text-center">Actions</th> </tr>
+            </thead>
+            <tbody>
+                {% for m in materiels %}
+                <tr>
+                    <td class="fw-bold text-primary">{{ m.no_reference }}</td>
+                    <td>{{ m.designation }}</td>
+                    <td>
+                        {% if m.etat == 'Neuf' %}
+                            <span class="badge bg-success">Neuf</span>
+                        {% elif m.etat == 'Bon' %}
+                            <span class="badge bg-info">Bon</span>
+                        {% else %}
+                            <span class="badge bg-warning text-dark">Usagé</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ m.date_achat|date:"d/m/y" }}</td>
+                    <td>{{ m.imputation }}</td>
+                    <td class="text-center">
+                        <a href="{% url 'modifier_materiel' m.id %}" class="btn btn-sm btn-outline-warning me-2" title="Modifier">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                        
+                        <a href="{% url 'supprimer_materiel' m.id %}" class="btn btn-sm btn-outline-danger" title="Supprimer">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center p-4">Aucun matériel répertorié pour le moment.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

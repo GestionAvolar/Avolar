@@ -1,0 +1,83 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card p-4 shadow-sm">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="mb-0 text-success">Liste des formulaires de collecte</h2>
+            
+            {% if user.is_superuser %}
+            <a href="{% url 'creer_formulaire_terrain' %}" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> Créer un nouveau formulaire
+            </a>
+            {% endif %}
+        </div>
+        
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Titre</th>
+                        <th>Projet</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for form in formulaires %}
+                    <tr>
+                        <td>{{ form.titre }}</td>
+                        <td>{{ form.projet.nom }}</td>
+                        <td class="text-end">
+                            <!-- Bouton pour remplir le formulaire (accessible à tous) -->
+                            <a href="{% url 'remplir_formulaire_terrain' form.pk %}" class="btn btn-primary btn-sm">
+                                <i class="bi bi-pencil-square"></i> Remplir
+                            </a>
+
+                            <!-- Actions réservées uniquement au super-user -->
+                            {% if user.is_superuser %}
+                            <a href="{% url 'modifier_formulaire_terrain' form.pk %}" class="btn btn-warning btn-sm text-white">
+                                <i class="bi bi-pencil"></i> Modifier
+                            </a>
+
+                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalSupprimer{{ form.pk }}">
+                                <i class="bi bi-trash"></i> Supprimer
+                            </button>
+                            {% endif %}
+                        </td>
+                    </tr>
+
+                    <!-- Modale de confirmation de suppression (uniquement pour le super-user) -->
+                    {% if user.is_superuser %}
+                    <div class="modal fade" id="modalSupprimer{{ form.pk }}" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header bg-danger text-white">
+                                    <h5 class="modal-title">Confirmation de suppression</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body text-start">
+                                    Êtes-vous sûr de vouloir supprimer définitivement le formulaire <strong>"{{ form.titre }}"</strong> ? Toutes les données associées seront effacées.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                    <form action="{% url 'supprimer_formulaire_terrain' form.pk %}" method="POST" style="display:inline;">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger">Oui, supprimer</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    {% empty %}
+                    <tr>
+                        <td colspan="3" class="text-center text-muted py-4">Aucun formulaire de collecte trouvé.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

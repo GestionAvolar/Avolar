@@ -1,0 +1,15 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="card shadow-sm p-4">
+        <h4 class="text-success"><i class="bi bi-calendar-event"></i> Nouvelle Planification</h4>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success">Enregistrer la Planification</button>
+            <a href="{% url 'se_home' %}" class="btn btn-secondary">Retour</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

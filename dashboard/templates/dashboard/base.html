@@ -1,0 +1,125 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Système de Gestion</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; margin: 0; background-color: #e0e0e0; }
+        body::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('{% static "images/fond.jpg" %}');
+            background-size: cover; background-position: right;
+            filter: blur(1px) brightness(0.8); z-index: -5;
+        }
+        .top-bar { position: fixed; top: 0; left: 250px; right: 0; height: 60px; background: #ffffff; border-bottom: 1px solid #dee2e6; display: flex; align-items: center; justify-content: space-between; padding: 0 30px; z-index: 1000; }
+        .sidebar { position: fixed; top: 0; left: 0; width: 250px; height: 100vh; background-color: #198754; color: white; padding: 20px; z-index: 1001; overflow-y: auto; }
+        .main-content { margin-left: 250px; margin-top: 60px; padding: 40px; }
+        .card { border: none; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); background-color: #ffffff; }
+        .nav-link { color: #ffffff !important; font-weight: 500; padding: 12px 15px; border-radius: 8px; margin-bottom: 4px; transition: 0.3s; }
+        .nav-link:hover { background-color: #146c43; }
+        .sub-menu { padding-left: 20px; }
+        .sub-menu .nav-link { font-size: 0.9em; background-color: #16774a; }
+        input, select, textarea { width: 100%; padding: 0.75rem 1rem; margin-bottom: 15px; border: 1px solid #dee2e6; border-radius: 0.75rem !important; }
+    </style>
+</head>
+<body>
+
+<header class="top-bar shadow-sm">
+    <span class="fw-bold text-success" style="font-size: 1.2rem;">Gestion interne AVOLAR ASBL</span>
+    <div class="d-flex align-items-center">
+        <span class="fw-bold text-success me-3"><i class="bi bi-person-circle"></i> {{ user.username|default:"Administrateur" }}</span>
+        <a href="{% url 'deconnexion' %}" class="btn btn-outline-danger btn-sm"><i class="bi bi-box-arrow-right"></i></a>
+    </div>
+</header>
+
+<nav class="sidebar">
+    <h5 class="text-center mb-4">Menu</h5>
+    <ul class="nav flex-column">
+        
+        <!-- Accueil : Masqué pour l'agro animateur (visible pour les autres / superuser) -->
+        {% if not user.is_superuser and "Agro animateur" in user.groups.all|join:"," %}
+        <!-- Rien ne s'affiche ici pour l'agro animateur -->
+        {% else %}
+        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}"><i class="bi bi-house"></i> Accueil</a></li>
+        {% endif %}
+
+        {% if user.is_superuser or "Coordonnateur national" in user.groups.all|join:"," %}
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#userSubMenu" role="button">
+                <i class="bi bi-shield-lock"></i> Administration <i class="bi bi-chevron-down float-end"></i>
+            </a>
+            <div class="collapse sub-menu" id="userSubMenu">
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'creer_utilisateur' %}">Créer Utilisateur</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'liste_utilisateurs' %}">Liste Utilisateurs</a></li>
+                </ul>
+            </div>
+        </li>
+        {% endif %}
+
+        {% if user.is_superuser or "Coordonnateur national" in user.groups.all|join:"," %}
+        <li class="nav-item"><a class="nav-link" href="{% url 'finance_view' %}"><i class="bi bi-wallet2"></i> Finance</a></li>
+        {% endif %}
+
+        {% if user.is_superuser or "Coordonnateur national" in user.groups.all|join:"," or "Logisticien" in user.groups.all|join:"," or "Chef de Projet" in user.groups.all|join:"," %}
+        <li class="nav-item"><a class="nav-link" href="{% url 'logistique_home' %}"><i class="bi bi-box-seam"></i> Logistique</a></li>
+        {% endif %}
+
+        {% if user.is_superuser or "Coordonnateur national" in user.groups.all|join:"," %}
+        <li class="nav-item"><a class="nav-link" href="{% url 'liste_projets' %}"><i class="bi bi-briefcase"></i> Projets</a></li>
+        {% endif %}
+
+        {% if user.is_superuser or "Coordonnateur national" in user.groups.all|join:"," or "Offres et Service" in user.groups.all|join:"," or "Suivi et Evaluation" in user.groups.all|join:"," or "Chef de Projet" in user.groups.all|join:"," %}
+        <li class="nav-item"><a class="nav-link" href="{% url 'liste_offres' %}"><i class="bi bi-file-earmark-text"></i> Offres & Services</a></li>
+        {% endif %}
+
+        {% if user.is_superuser or "Coordonnateur national" in user.groups.all|join:"," or "Suivi et Evaluation" in user.groups.all|join:"," or "Chef de Projet" in user.groups.all|join:"," %}
+        <li class="nav-item"><a class="nav-link" href="{% url 'se_home' %}"><i class="bi bi-search"></i> Suivi & Éval.</a></li>
+        {% endif %}
+
+        <!-- COLLECTE DE DONNÉES : Visible pour l'Agro animateur et les autres rôles autorisés -->
+        {% if user.is_superuser or "Coordonnateur national" in user.groups.all|join:"," or "Suivi et Evaluation" in user.groups.all|join:"," or "Chef de Projet" in user.groups.all|join:"," or "Agro animateur" in user.groups.all|join:"," %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'liste_formulaires_terrain' %}">
+                <i class="bi bi-clipboard-data"></i> Collecte de données
+            </a>
+        </li>
+        {% endif %}
+
+        <!-- TOUTES LES SOUMISSIONS : Réservé aux administrateurs et responsables (masqué pour l'Agro animateur) -->
+        {% if user.is_superuser or "Coordonnateur national" in user.groups.all|join:"," or "Suivi et Evaluation" in user.groups.all|join:"," or "Chef de Projet" in user.groups.all|join:"," %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'liste_toutes_soumissions' %}">
+                <i class="bi bi-file-earmark-check"></i> Toutes les soumissions
+            </a>
+        </li>
+        {% endif %}
+
+        {% if user.is_superuser or "Coordonnateur national" in user.groups.all|join:"," or "Ressources Humaines" in user.groups.all|join:"," or "Suivi et Evaluation" in user.groups.all|join:"," or "Chef de Projet" in user.groups.all|join:"," %}
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#rhSubMenu" role="button">
+                <i class="bi bi-people"></i> Ressources humaines <i class="bi bi-chevron-down float-end"></i>
+            </a>
+            <div class="collapse sub-menu" id="rhSubMenu">
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'liste_consultants' %}">Liste des Consultants</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'presence_rh' %}">Présence Journalière</a></li>
+                </ul>
+            </div>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+
+<main class="main-content">
+    {% block content %}{% endblock %}
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

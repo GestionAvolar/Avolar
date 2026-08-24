@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4 mb-5">
+    <div class="card p-4 shadow-sm">
+        <h2 class="text-success mb-4">✏️ Modifier le formulaire : "{{ formulaire.titre }}"</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            
+            <!-- Informations globales du formulaire -->
+            <div class="mb-3">
+                {{ form.titre.label_tag }}
+                {{ form.titre }}
+            </div>
+            <div class="mb-3">
+                {{ form.description.label_tag }}
+                {{ form.description }}
+            </div>
+            <div class="mb-4">
+                {{ form.projet.label_tag }}
+                {{ form.projet }}
+            </div>
+
+            <hr>
+            <h4 class="mb-3">Questions du formulaire</h4>
+            
+            {{ formset.management_form }}
+            <div id="champs-container">
+                {% for champ_form in formset %}
+                    <div class="card p-3 mb-3 bg-light border">
+                        {{ champ_form.id }}
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                {{ champ_form.libelle_question.label_tag }}
+                                {{ champ_form.libelle_question }}
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                {{ champ_form.type_champ.label_tag }}
+                                {{ champ_form.type_champ }}
+                            </div>
+                            <div class="col-md-2 mb-2 d-flex align-items-center">
+                                {% if formset.can_delete %}
+                                    <div class="form-check mt-4">
+                                        {{ champ_form.DELETE }}
+                                        <label class="form-check-label text-danger" for="{{ champ_form.DELETE.id_for_label }}">Supprimer</label>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 mb-2">
+                                {{ champ_form.options.label_tag }}
+                                {{ champ_form.options }}
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <div class="form-check">
+                                    {{ champ_form.est_obligatoire }}
+                                    <label class="form-check-label" for="{{ champ_form.est_obligatoire.id_for_label }}">Obligatoire</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                {{ champ_form.ordre.label_tag }}
+                                {{ champ_form.ordre }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+                <a href="{% url 'liste_formulaires_terrain' %}" class="btn btn-secondary">Annuler</a>
+                <button type="submit" class="btn btn-success">Enregistrer les modifications</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

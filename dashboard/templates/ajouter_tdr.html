@@ -1,0 +1,42 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-header bg-white border-0 pt-4 pb-0">
+            <h4 class="text-success fw-bold"><i class="bi bi-file-earmark-plus"></i> Nouveau TDR</h4>
+        </div>
+        
+        <div class="card-body p-4">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Projet</label>
+                        {{ form.projet }}
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold">Date Début</label>
+                        {{ form.date_debut }}
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold">Date Fin</label>
+                        {{ form.date_fin }}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Zone d'intervention</label>
+                        {{ form.zone_intervention }}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Fichier (Word/PDF)</label>
+                        {{ form.fichier }}
+                    </div>
+                </div>
+                <div class="mt-4 text-end">
+                    <button type="submit" class="btn btn-success px-4">Enregistrer le TDR</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
