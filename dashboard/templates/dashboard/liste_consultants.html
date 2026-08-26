@@ -23,25 +23,23 @@
         </thead>
         <tbody>
             {% for consultant in consultants %}
-            {# On récupère la première affectation active liée au consultant #}
-            {% with affectation=consultant.affectations.first %}
             <tr>
                 <td>{{ consultant.nom_complet }}</td>
                 <td>{{ consultant.profession_base }}</td>
                 <td>
-                    {% if affectation %}
-                        <span class="badge bg-info text-dark">{{ affectation.projet.nom }}</span>
+                    {% if consultant.projet %}
+                        <span class="badge bg-info text-dark">{{ consultant.projet.nom }}</span>
                     {% else %}
                         <span class="text-muted italic">Non affecté</span>
                     {% endif %}
                 </td>
-                <td>{{ affectation.fonction|default:"-" }}</td>
+                <td>{{ consultant.fonction_occupee|default:"-" }}</td>
                 <td class="text-end">
                     <a href="{% url 'voir_consultant' consultant.id %}" class="btn btn-info btn-sm text-white" title="Visualiser">
                         <i class="bi bi-eye"></i>
                     </a>
 
-                    {% if not affectation %}
+                    {% if not consultant.projet %}
                     <a href="{% url 'affecter_consultant' consultant.id %}" class="btn btn-success btn-sm" title="Affecter">
                         <i class="bi bi-person-plus"></i>
                     </a>
@@ -52,12 +50,11 @@
                     </a>
 
                     <a href="{% url 'supprimer_consultant' consultant.id %}" class="btn btn-danger btn-sm" title="Supprimer" 
-                       onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce consultant ? Cette action est irréversible.')">
+                        onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce consultant ? Cette action est irréversible.')">
                         <i class="bi bi-trash"></i>
                     </a>
                 </td>
             </tr>
-            {% endwith %}
             {% empty %}
             <tr>
                 <td colspan="5" class="text-center">Aucun consultant enregistré pour le moment.</td>
