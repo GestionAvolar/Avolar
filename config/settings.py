@@ -13,7 +13,7 @@ SECRET_KEY = 'django-insecure-#rp!ftor3jv3fnnr8b%cc0)z@h&$s^kw4s434ub89)m8pjyec)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # Mis à False pour la production sur Render
-DEBUG = True
+DEBUG = False
 
 # Autorise tous les hôtes pour éviter les blocages de domaine sur Render
 ALLOWED_HOSTS = ['*']
