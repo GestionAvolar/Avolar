@@ -12,11 +12,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-#rp!ftor3jv3fnnr8b%cc0)z@h&$s^kw4s434ub89)m8pjyec)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# S'active automatiquement en mode local, et se désactive sur Render
-DEBUG = 'RENDER' not in os.environ
+# Mis à False pour la production sur Render
+DEBUG = False
 
-# Autorise ton domaine Render et les accès locaux
-ALLOWED_HOSTS = ['.onrender.com', 'localhost', '127.0.0.1']
+# Autorise tous les hôtes pour éviter les blocages de domaine sur Render
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 INSTALLED_APPS = [
@@ -31,8 +31,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    # WhiteNoise recommandé sur Render pour servir les fichiers statiques proprement
-    # 'whitenoise.middleware.WhiteNoiseMiddleware', 
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Indispensable sur Render pour les fichiers statiques
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -78,8 +77,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'dashboard/static',
 ]
-# Indispensable pour que Render collecte tous les fichiers statiques en production
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Configuration WhiteNoise pour la gestion des fichiers statiques en production
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
