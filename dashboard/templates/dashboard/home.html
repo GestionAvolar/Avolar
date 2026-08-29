@@ -3,59 +3,73 @@
 {% block page_title %}Tableau de Bord{% endblock %}
 
 {% block content %}
-<div class="container-fluid py-5">
+<div class="container-fluid py-3 py-md-5 px-2 px-md-4">
     
-    <!-- Affichage forcé temporairement pour tout utilisateur connecté -->
-    <div class="mb-5 text-center">
-        <h1 class="display-5 fw-bold text-success">Tableau de Bord</h1>
-        <p class="text-muted">Sélectionnez un département pour commencer la gestion</p>
+    <div class="mb-4 mb-md-5 text-center">
+        <h1 class="h3 h1-md fw-bold text-success">Tableau de Bord</h1>
+        <p class="text-muted small md-normal">Sélectionnez un département pour commencer la gestion</p>
     </div>
 
-    <div class="row row-cols-1 row-cols-md-3 g-4">
+    <!-- Grille adaptative : 1 colonne sur mobile, 2 sur tablette, 3 sur PC -->
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 g-md-4">
+        
+        <!-- Bloc Finance -->
+        {% if user.is_superuser or "Assistant Financier" in user.groups.all.values_list.flat or "Coordonnateur national" in user.groups.all.values_list.flat %}
         <div class="col">
-            <div class="card h-100 shadow-sm border-0 p-4 transition-card">
-                <div class="text-success mb-3"><i class="bi bi-wallet2 fs-1"></i></div>
-                <h4 class="fw-bold">Finance</h4>
-                <p class="text-muted flex-grow-1">Gestion des entrées, sorties et journal de caisse.</p>
-                <a href="{% url 'finance_view' %}" class="btn btn-outline-success">Accéder</a>
+            <div class="card h-100 shadow-sm border-0 p-3 p-md-4 transition-card">
+                <div class="text-success mb-2 mb-md-3"><i class="bi bi-wallet2 fs-2 fs-md-1"></i></div>
+                <h4 class="fw-bold h5">Finance</h4>
+                <p class="text-muted flex-grow-1 small">Gestion des entrées, sorties et journal de caisse.</p>
+                <a href="{% url 'finance_view' %}" class="btn btn-outline-success btn-sm btn-md-normal mt-2">Accéder</a>
             </div>
         </div>
+        {% endif %}
 
+        <!-- Bloc Logistique -->
+        {% if user.is_superuser or not "Agro animateur" in user.groups.all.values_list.flat %}
         <div class="col">
-            <div class="card h-100 shadow-sm border-0 p-4 transition-card">
-                <div class="text-success mb-3"><i class="bi bi-box-seam fs-1"></i></div>
-                <h4 class="fw-bold">Logistique</h4>
-                <p class="text-muted flex-grow-1">Gestion des états de besoin et matériel non consommable.</p>
-                <a href="{% url 'logistique_home' %}" class="btn btn-outline-success">Accéder</a>
+            <div class="card h-100 shadow-sm border-0 p-3 p-md-4 transition-card">
+                <div class="text-success mb-2 mb-md-3"><i class="bi bi-box-seam fs-2 fs-md-1"></i></div>
+                <h4 class="fw-bold h5">Logistique</h4>
+                <p class="text-muted flex-grow-1 small">Gestion des états de besoin et matériel non consommable.</p>
+                <a href="{% url 'logistique_home' %}" class="btn btn-outline-success btn-sm btn-md-normal mt-2">Accéder</a>
             </div>
         </div>
+        {% endif %}
 
+        <!-- Bloc Projets -->
+        {% if user.is_superuser or "Coordonnateur national" in user.groups.all.values_list.flat %}
         <div class="col">
-            <div class="card h-100 shadow-sm border-0 p-4 transition-card">
-                <div class="text-success mb-3"><i class="bi bi-briefcase fs-1"></i></div>
-                <h4 class="fw-bold">Projets</h4>
-                <p class="text-muted flex-grow-1">Suivi des projets, contrats et bailleurs de fonds.</p>
-                <a href="{% url 'liste_projets' %}" class="btn btn-outline-success">Accéder</a>
+            <div class="card h-100 shadow-sm border-0 p-3 p-md-4 transition-card">
+                <div class="text-success mb-2 mb-md-3"><i class="bi bi-briefcase fs-2 fs-md-1"></i></div>
+                <h4 class="fw-bold h5">Projets</h4>
+                <p class="text-muted flex-grow-1 small">Suivi des projets, contrats et bailleurs de fonds.</p>
+                <a href="{% url 'liste_projets' %}" class="btn btn-outline-success btn-sm btn-md-normal mt-2">Accéder</a>
             </div>
         </div>
+        {% endif %}
     </div>
 
-    <!-- Section Formulaires de terrain toujours accessible également -->
-    <div class="row justify-content-center text-center my-5">
-        <div class="col-md-6">
-            <div class="card shadow-lg border-0 p-4 bg-light">
-                <h3 class="fw-bold text-success mb-2">Collecte de Données Terrain</h3>
-                <a href="{% url 'liste_formulaires_terrain' %}" class="btn btn-success btn-md px-4 py-2 fw-bold shadow-sm">
+    <!-- Section Formulaires de terrain -->
+    {% if user.is_superuser or "Agro animateur" in user.groups.all.values_list.flat or "Coordonnateur national" in user.groups.all.values_list.flat %}
+    <div class="row justify-content-center text-center my-4 my-md-5">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="card shadow-lg border-0 p-3 p-md-4 bg-light">
+                <h3 class="fw-bold text-success mb-2 h5 h3-md">Collecte de Données Terrain</h3>
+                <a href="{% url 'liste_formulaires_terrain' %}" class="btn btn-success btn-md px-3 px-md-4 py-2 fw-bold shadow-sm w-100 w-md-auto">
                     <i class="bi bi-folder2-open me-2"></i> Accéder aux Formulaires
                 </a>
             </div>
         </div>
     </div>
+    {% endif %}
 
 </div>
 
 <style>
     .transition-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-    .transition-card:hover { transform: translateY(-10px); box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important; }
+    @media (min-width: 768px) {
+        .transition-card:hover { transform: translateY(-10px); box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important; }
+    }
 </style>
 {% endblock %}

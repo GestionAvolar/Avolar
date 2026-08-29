@@ -38,7 +38,7 @@
         .top-bar { 
             position: fixed; 
             top: 0; 
-            left: 0; /* Par défaut plein écran sur mobile */
+            left: 0; 
             right: 0; 
             height: 60px; 
             background: #ffffff; 
@@ -67,7 +67,7 @@
 
         /* --- Contenu principal --- */
         .main-content { 
-            margin-left: 0; /* Pleine largeur par défaut sur mobile */
+            margin-left: 0; 
             margin-top: 60px; 
             padding: 20px; 
             transition: margin-left 0.3s ease-in-out;
@@ -76,20 +76,20 @@
         /* --- Styles spécifiques aux grands écrans (Desktop / Tablettes larges) --- */
         @media (min-width: 992px) {
             .top-bar {
-                left: 250px; /* Décale la barre du haut pour laisser place à la sidebar */
+                left: 250px; 
                 padding: 0 30px;
             }
             .main-content {
-                margin-left: 250px; /* Décale le contenu */
+                margin-left: 250px; 
                 padding: 40px;
             }
             .mobile-menu-btn {
-                display: none !important; /* Cache le bouton hamburger sur PC */
+                display: none !important; 
             }
         }
 
         .card { border: none; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); background-color: #ffffff; }
-        .nav-link { color: #ffffff !important; font-weight: 500; padding: 12px 15px; border-radius: 8px; margin-bottom: 4px; transition: 0.3s; }
+        .nav-link { color: #ffffff !important; font-weight: 500; padding: 10px 15px; border-radius: 8px; margin-bottom: 4px; transition: 0.3s; }
         .nav-link:hover { background-color: #146c43; }
         .sub-menu { padding-left: 20px; }
         .sub-menu .nav-link { font-size: 0.9em; background-color: #16774a; }
@@ -116,7 +116,62 @@
 <!-- NAVIGATION POUR GRANDS ÉCRANS (PC / Ordinateurs portables) -->
 <nav class="sidebar d-none d-lg-block">
     <h5 class="text-center mb-4">Menu</h5>
-    {% include "menu_items.html" with is_mobile=False %}
+    <ul class="nav flex-column">
+        {% if user.is_superuser %}
+            <li class="nav-item">
+                <a href="{% url 'home' %}" class="nav-link"><i class="bi bi-speedometer2 me-2"></i> Tableau de bord</a>
+            </li>
+        {% endif %}
+
+        {% if user.is_superuser or "Assistant Financier" in user.groups.all.values_list.flat %}
+            <li class="nav-item">
+                <a href="{% url 'finance_view' %}" class="nav-link"><i class="bi bi-wallet2 me-2"></i> Finance</a>
+            </li>
+        {% endif %}
+
+        {% if user.is_superuser or "Logisticien" in user.groups.all.values_list.flat or "Assistant Financier" in user.groups.all.values_list.flat %}
+            <li class="nav-item">
+                <a href="{% url 'logistique_home' %}" class="nav-link"><i class="bi bi-box-seam me-2"></i> Logistique</a>
+            </li>
+        {% endif %}
+
+        {% if user.is_superuser %}
+            <li class="nav-item">
+                <a href="{% url 'liste_projets' %}" class="nav-link"><i class="bi bi-briefcase me-2"></i> Projets</a>
+            </li>
+        {% endif %}
+
+        {% if user.is_superuser or "Agro animateur" in user.groups.all.values_list.flat %}
+        <li class="nav-item">
+            <a href="{% url 'liste_formulaires_terrain' %}" class="nav-link"><i class="bi bi-clipboard-check me-2"></i> Terrain</a>
+        </li>
+        {% endif %}
+
+        {% if user.is_superuser or "Suivi & Evaluation" in user.groups.all.values_list.flat %}
+            <li class="nav-item">
+                <a href="{% url 'se_home' %}" class="nav-link"><i class="bi bi-graph-up-arrow me-2"></i> Suivi & Évaluation</a>
+            </li>
+        {% endif %}
+
+        {% if user.is_superuser or "Offre et Service" in user.groups.all.values_list.flat %}
+            <li class="nav-item">
+                <a href="{% url 'liste_offres' %}" class="nav-link"><i class="bi bi-briefcase-fill me-2"></i> Offres & Services</a>
+            </li>
+        {% endif %}
+
+        {% if user.is_superuser %}
+            <li class="nav-item">
+                <a href="{% url 'liste_consultants' %}" class="nav-link"><i class="bi bi-people-fill me-2"></i> Ressources Humaines</a>
+            </li>
+            <hr class="text-white my-2">
+            <li class="nav-item">
+                <a href="{% url 'liste_utilisateurs' %}" class="nav-link"><i class="bi bi-people me-2"></i> Liste des utilisateurs</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'creer_utilisateur' %}" class="nav-link"><i class="bi bi-person-plus me-2"></i> Ajouter un utilisateur</a>
+            </li>
+        {% endif %}
+    </ul>
 </nav>
 
 <!-- NAVIGATION POUR SMARTPHONES ET TABLETTES (Fenêtre coulissante Offcanvas) -->
@@ -126,7 +181,62 @@
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body p-3">
-        {% include "menu_items.html" with is_mobile=True %}
+        <ul class="nav flex-column">
+            {% if user.is_superuser %}
+                <li class="nav-item">
+                    <a href="{% url 'home' %}" class="nav-link"><i class="bi bi-speedometer2 me-2"></i> Tableau de bord</a>
+                </li>
+            {% endif %}
+
+            {% if user.is_superuser or "Assistant Financier" in user.groups.all.values_list.flat %}
+                <li class="nav-item">
+                    <a href="{% url 'finance_view' %}" class="nav-link"><i class="bi bi-wallet2 me-2"></i> Finance</a>
+                </li>
+            {% endif %}
+
+            {% if user.is_superuser or "Logisticien" in user.groups.all.values_list.flat or "Assistant Financier" in user.groups.all.values_list.flat %}
+                <li class="nav-item">
+                    <a href="{% url 'logistique_home' %}" class="nav-link"><i class="bi bi-box-seam me-2"></i> Logistique</a>
+                </li>
+            {% endif %}
+
+            {% if user.is_superuser %}
+                <li class="nav-item">
+                    <a href="{% url 'liste_projets' %}" class="nav-link"><i class="bi bi-briefcase me-2"></i> Projets</a>
+                </li>
+            {% endif %}
+
+            {% if user.is_superuser or "Agro animateur" in user.groups.all.values_list.flat %}
+            <li class="nav-item">
+                <a href="{% url 'liste_formulaires_terrain' %}" class="nav-link"><i class="bi bi-clipboard-check me-2"></i> Terrain</a>
+            </li>
+            {% endif %}
+
+            {% if user.is_superuser or "Suivi & Evaluation" in user.groups.all.values_list.flat %}
+                <li class="nav-item">
+                    <a href="{% url 'se_home' %}" class="nav-link"><i class="bi bi-graph-up-arrow me-2"></i> Suivi & Évaluation</a>
+                </li>
+            {% endif %}
+
+            {% if user.is_superuser or "Offre et Service" in user.groups.all.values_list.flat %}
+                <li class="nav-item">
+                    <a href="{% url 'liste_offres' %}" class="nav-link"><i class="bi bi-briefcase-fill me-2"></i> Offres & Services</a>
+                </li>
+            {% endif %}
+
+            {% if user.is_superuser %}
+                <li class="nav-item">
+                    <a href="{% url 'liste_consultants' %}" class="nav-link"><i class="bi bi-people-fill me-2"></i> Ressources Humaines</a>
+                </li>
+                <hr class="text-white my-2">
+                <li class="nav-item">
+                    <a href="{% url 'liste_utilisateurs' %}" class="nav-link"><i class="bi bi-people me-2"></i> Liste des utilisateurs</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'creer_utilisateur' %}" class="nav-link"><i class="bi bi-person-plus me-2"></i> Ajouter un utilisateur</a>
+                </li>
+            {% endif %}
+        </ul>
     </div>
 </div>
 

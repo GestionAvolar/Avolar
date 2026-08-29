@@ -1,40 +1,71 @@
 {% extends 'dashboard/base.html' %}
 
+{% block page_title %}Tableau de Bord{% endblock %}
+
 {% block content %}
-<div class="container-fluid py-4">
-    <h2 class="text-success"><i class="bi bi-search"></i> Suivi & Évaluation</h2>
-    <hr>
+<div class="container-fluid py-5">
     
-    <div class="row g-4">
-        <div class="col-md-4">
-            <div class="card p-4 hover-effect">
-                <h5 class="mb-3"><i class="bi bi-file-earmark-text"></i> Termes de Référence</h5>
-                <div class="d-grid gap-2">
-                    <a href="{% url 'ajouter_tdr' %}" class="btn btn-success">Ajouter un TDR</a>
-                    <a href="{% url 'liste_tdr' %}" class="btn btn-outline-secondary">Voir la liste</a>
-                </div>
+    <div class="mb-5 text-center">
+        <h1 class="display-5 fw-bold text-success">Tableau de Bord</h1>
+        <p class="text-muted">Sélectionnez un département pour commencer la gestion</p>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <!-- Bloc Finance (Visible uniquement pour Assistant Financier ou Superuser) -->
+        {% if user.is_superuser or "Assistant Financier" in user.groups.all.values_list.flat %}
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0 p-4 transition-card">
+                <div class="text-success mb-3"><i class="bi bi-wallet2 fs-1"></i></div>
+                <h4 class="fw-bold">Finance</h4>
+                <p class="text-muted flex-grow-1">Gestion des entrées, sorties et journal de caisse.</p>
+                <a href="{% url 'finance_view' %}" class="btn btn-outline-success">Accéder</a>
             </div>
         </div>
+        {% endif %}
 
-        <div class="col-md-4">
-            <div class="card p-4 hover-effect">
-                <h5 class="mb-3"><i class="bi bi-file-earmark-check"></i> Rapports de Missions</h5>
-                <div class="d-grid gap-2">
-                    <a href="{% url 'ajouter_rapport' %}" class="btn btn-success">Ajouter un Rapport</a>
-                    <a href="{% url 'liste_rapports' %}" class="btn btn-outline-secondary">Voir la liste</a>
-                </div>
+        <!-- Bloc Logistique (Visible pour Superuser, Logisticien et Assistant Financier) -->
+        {% if user.is_superuser or "Logisticien" in user.groups.all.values_list.flat or "Assistant Financier" in user.groups.all.values_list.flat %}
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0 p-4 transition-card">
+                <div class="text-success mb-3"><i class="bi bi-box-seam fs-1"></i></div>
+                <h4 class="fw-bold">Logistique</h4>
+                <p class="text-muted flex-grow-1">Gestion des états de besoin et matériel non consommable.</p>
+                <a href="{% url 'logistique_home' %}" class="btn btn-outline-success">Accéder</a>
             </div>
         </div>
+        {% endif %}
 
-        <div class="col-md-4">
-            <div class="card p-4 hover-effect">
-                <h5 class="mb-3"><i class="bi bi-calendar-event"></i> Planification</h5>
-                <div class="d-grid gap-2">
-                    <a href="{% url 'ajouter_planification' %}" class="btn btn-success">Nouvelle Planification</a>
-                    <a href="{% url 'liste_planifications' %}" class="btn btn-outline-secondary">Voir le planning</a>
-                </div>
+        <!-- Bloc Projets (Visible uniquement pour le Superuser / Coordonnateur) -->
+        {% if user.is_superuser %}
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0 p-4 transition-card">
+                <div class="text-success mb-3"><i class="bi bi-briefcase fs-1"></i></div>
+                <h4 class="fw-bold">Projets</h4>
+                <p class="text-muted flex-grow-1">Suivi des projets, contrats et bailleurs de fonds.</p>
+                <a href="{% url 'liste_projets' %}" class="btn btn-outline-success">Accéder</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Section Formulaires de terrain (Réservée exclusivement au Superuser et à l'Agro Animateur) -->
+    {% if user.is_superuser or "Agro animateur" in user.groups.all.values_list.flat %}
+    <div class="row justify-content-center text-center my-5">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0 p-4 bg-light">
+                <h3 class="fw-bold text-success mb-2">Collecte de Données Terrain</h3>
+                <a href="{% url 'liste_formulaires_terrain' %}" class="btn btn-success btn-md px-4 py-2 fw-bold shadow-sm">
+                    <i class="bi bi-folder2-open me-2"></i> Accéder aux Formulaires
+                </a>
             </div>
         </div>
     </div>
+    {% endif %}
+
 </div>
+
+<style>
+    .transition-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .transition-card:hover { transform: translateY(-10px); box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important; }
+</style>
 {% endblock %}
