@@ -6,63 +6,86 @@
 <div class="container-fluid py-3 py-md-5 px-2 px-md-4">
     
     <div class="mb-4 mb-md-5 text-center">
-        <h1 class="h3 h1-md fw-bold text-success">Tableau de Bord</h1>
+        <h1 class="h3 h1-md fw-bold text-success">Bienvenue</h1>
         <p class="text-muted small md-normal">Sélectionnez un département pour commencer la gestion</p>
     </div>
 
-    <!-- Grille adaptative : 1 colonne sur mobile, 2 sur tablette, 3 sur PC -->
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 g-md-4">
+    <!-- Grille adaptative centrée pour TOUS les blocs (y compris Terrain) -->
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 g-md-4 justify-content-center">
         
-        <!-- Bloc Finance -->
-        {% if user.is_superuser or "Assistant Financier" in user.groups.all.values_list.flat or "Coordonnateur national" in user.groups.all.values_list.flat %}
-        <div class="col">
-            <div class="card h-100 shadow-sm border-0 p-3 p-md-4 transition-card">
-                <div class="text-success mb-2 mb-md-3"><i class="bi bi-wallet2 fs-2 fs-md-1"></i></div>
-                <h4 class="fw-bold h5">Finance</h4>
-                <p class="text-muted flex-grow-1 small">Gestion des entrées, sorties et journal de caisse.</p>
-                <a href="{% url 'finance_view' %}" class="btn btn-outline-success btn-sm btn-md-normal mt-2">Accéder</a>
+        <!-- 1. Bloc Finance -->
+        {% if can_see_finance %}
+        <div class="col d-flex">
+            <div class="card h-100 w-100 shadow-sm border-0 p-3 p-md-4 transition-card d-flex flex-column justify-content-between">
+                <div>
+                    <div class="text-success mb-2 mb-md-3"><i class="bi bi-wallet2 fs-2 fs-md-1"></i></div>
+                    <h4 class="fw-bold h5">Finance</h4>
+                    <p class="text-muted small mb-3">Gestion des entrées, sorties et journal de caisse.</p>
+                </div>
+                <a href="{% url 'finance_view' %}" class="btn btn-outline-success btn-sm btn-md-normal mt-2 w-100">Accéder</a>
             </div>
         </div>
         {% endif %}
 
-        <!-- Bloc Logistique -->
-        {% if user.is_superuser or not "Agro animateur" in user.groups.all.values_list.flat %}
-        <div class="col">
-            <div class="card h-100 shadow-sm border-0 p-3 p-md-4 transition-card">
-                <div class="text-success mb-2 mb-md-3"><i class="bi bi-box-seam fs-2 fs-md-1"></i></div>
-                <h4 class="fw-bold h5">Logistique</h4>
-                <p class="text-muted flex-grow-1 small">Gestion des états de besoin et matériel non consommable.</p>
-                <a href="{% url 'logistique_home' %}" class="btn btn-outline-success btn-sm btn-md-normal mt-2">Accéder</a>
+        <!-- 2. Bloc Logistique -->
+        {% if can_see_logistics %}
+        <div class="col d-flex">
+            <div class="card h-100 w-100 shadow-sm border-0 p-3 p-md-4 transition-card d-flex flex-column justify-content-between">
+                <div>
+                    <div class="text-success mb-2 mb-md-3"><i class="bi bi-box-seam fs-2 fs-md-1"></i></div>
+                    <h4 class="fw-bold h5">Logistique</h4>
+                    <p class="text-muted small mb-3">Gestion des états de besoin et matériel non consommable.</p>
+                </div>
+                <a href="{% url 'logistique_home' %}" class="btn btn-outline-success btn-sm btn-md-normal mt-2 w-100">Accéder</a>
             </div>
         </div>
         {% endif %}
 
-        <!-- Bloc Projets -->
-        {% if user.is_superuser or "Coordonnateur national" in user.groups.all.values_list.flat %}
-        <div class="col">
-            <div class="card h-100 shadow-sm border-0 p-3 p-md-4 transition-card">
-                <div class="text-success mb-2 mb-md-3"><i class="bi bi-briefcase fs-2 fs-md-1"></i></div>
-                <h4 class="fw-bold h5">Projets</h4>
-                <p class="text-muted flex-grow-1 small">Suivi des projets, contrats et bailleurs de fonds.</p>
-                <a href="{% url 'liste_projets' %}" class="btn btn-outline-success btn-sm btn-md-normal mt-2">Accéder</a>
+        <!-- 3. Bloc Projets -->
+        {% if can_see_projects %}
+        <div class="col d-flex">
+            <div class="card h-100 w-100 shadow-sm border-0 p-3 p-md-4 transition-card d-flex flex-column justify-content-between">
+                <div>
+                    <div class="text-success mb-2 mb-md-3"><i class="bi bi-briefcase fs-2 fs-md-1"></i></div>
+                    <h4 class="fw-bold h5">Projets</h4>
+                    <p class="text-muted small mb-3">Suivi des projets, contrats et bailleurs de fonds.</p>
+                </div>
+                <a href="{% url 'liste_projets' %}" class="btn btn-outline-success btn-sm btn-md-normal mt-2 w-100">Accéder</a>
             </div>
         </div>
         {% endif %}
-    </div>
 
-    <!-- Section Formulaires de terrain -->
-    {% if user.is_superuser or "Agro animateur" in user.groups.all.values_list.flat or "Coordonnateur national" in user.groups.all.values_list.flat %}
-    <div class="row justify-content-center text-center my-4 my-md-5">
-        <div class="col-12 col-md-8 col-lg-6">
-            <div class="card shadow-lg border-0 p-3 p-md-4 bg-light">
-                <h3 class="fw-bold text-success mb-2 h5 h3-md">Collecte de Données Terrain</h3>
-                <a href="{% url 'liste_formulaires_terrain' %}" class="btn btn-success btn-md px-3 px-md-4 py-2 fw-bold shadow-sm w-100 w-md-auto">
-                    <i class="bi bi-folder2-open me-2"></i> Accéder aux Formulaires
+        <!-- 4. Bloc Suivi et Évaluation -->
+        {% if can_see_se %}
+        <div class="col d-flex">
+            <div class="card h-100 w-100 shadow-sm border-0 p-3 p-md-4 transition-card d-flex flex-column justify-content-between">
+                <div>
+                    <div class="text-success mb-2 mb-md-3"><i class="bi bi-graph-up-arrow fs-2 fs-md-1"></i></div>
+                    <h4 class="fw-bold h5">Suivi & Évaluation</h4>
+                    <p class="text-muted small mb-3">Gestion des TDR, rapports de mission et planifications.</p>
+                </div>
+                <a href="{% url 'se_home' %}" class="btn btn-outline-success btn-sm btn-md-normal mt-2 w-100">Accéder</a>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- 5. Bloc Collecte de Données Terrain (Intégré dans la grille) -->
+        {% if can_see_terrain %}
+        <div class="col d-flex">
+            <div class="card h-100 w-100 shadow-sm border-0 p-3 p-md-4 transition-card d-flex flex-column justify-content-between bg-light">
+                <div>
+                    <div class="text-success mb-2 mb-md-3"><i class="bi bi-clipboard-check fs-2 fs-md-1"></i></div>
+                    <h4 class="fw-bold h5">Collecte de Données Terrain</h4>
+                    <p class="text-muted small mb-3">Remplissage et suivi des formulaires de terrain.</p>
+                </div>
+                <a href="{% url 'liste_formulaires_terrain' %}" class="btn btn-success btn-sm btn-md-normal mt-2 w-100 text-white">
+                    <i class="bi bi-folder2-open me-2"></i> Accéder
                 </a>
             </div>
         </div>
+        {% endif %}
+
     </div>
-    {% endif %}
 
 </div>
 

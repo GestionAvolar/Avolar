@@ -31,7 +31,30 @@ def paginate(request, queryset, count=20):
 # --- Accueil & Finance ---
 @login_required
 def home(request):
-    return render(request, 'dashboard/home.html')
+    user = request.user
+    
+    # Récupérer tous les noms de groupes de l'utilisateur en minuscules pour éviter les erreurs de casse
+    user_groups = [g.name.lower() for g in user.groups.all()]
+    
+    is_super = user.is_superuser
+    is_coord = "coordonnateur national" in user_groups or "coordinateur national" in user_groups
+    is_agro = "agro animateur" in user_groups or "agro-animateur" in user_groups
+    
+    # Si c'est un agro-animateur pur, on le redirige vers sa page terrain
+    if is_agro and not is_super and not is_coord:
+        return redirect('liste_formulaires_terrain')
+
+    context = {
+        'can_see_finance': is_super or is_coord or "assistant financier" in user_groups or "finance" in user_groups,
+        'can_see_logistics': is_super or is_coord or "logisticien" in user_groups or "logistique" in user_groups,
+        'can_see_projects': is_super or is_coord or "chef de projet" in user_groups or "projets" in user_groups,
+        'can_see_se': is_super or is_coord or "suivi et évaluation" in user_groups or "suivi & évaluation" in user_groups,
+        'can_see_terrain': is_super or is_coord or is_agro,
+    }
+    
+    # Sécurité supplémentaire : si un utilisateur n'a aucun rôle reconnu mais n'est pas bloqué, 
+    # on peut lui afficher par défaut les blocs de base ou s'assurer que le HTML gère l'affichage.
+    return render(request, 'dashboard/home.html', context)
 @login_required
 def finance_view(request): return render(request, 'dashboard/finance.html')
 

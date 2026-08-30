@@ -123,37 +123,37 @@
             </li>
         {% endif %}
 
-        {% if user.is_superuser or "Assistant Financier" in user.groups.all.values_list.flat %}
+        {% if user.is_superuser or can_see_finance %}
             <li class="nav-item">
                 <a href="{% url 'finance_view' %}" class="nav-link"><i class="bi bi-wallet2 me-2"></i> Finance</a>
             </li>
         {% endif %}
 
-        {% if user.is_superuser or "Logisticien" in user.groups.all.values_list.flat or "Assistant Financier" in user.groups.all.values_list.flat %}
+        {% if user.is_superuser or can_see_logistics %}
             <li class="nav-item">
                 <a href="{% url 'logistique_home' %}" class="nav-link"><i class="bi bi-box-seam me-2"></i> Logistique</a>
             </li>
         {% endif %}
 
-        {% if user.is_superuser %}
+        {% if user.is_superuser or can_see_projects %}
             <li class="nav-item">
                 <a href="{% url 'liste_projets' %}" class="nav-link"><i class="bi bi-briefcase me-2"></i> Projets</a>
             </li>
         {% endif %}
 
-        {% if user.is_superuser or "Agro animateur" in user.groups.all.values_list.flat %}
+        {% if user.is_superuser or can_see_terrain %}
         <li class="nav-item">
             <a href="{% url 'liste_formulaires_terrain' %}" class="nav-link"><i class="bi bi-clipboard-check me-2"></i> Terrain</a>
         </li>
         {% endif %}
 
-        {% if user.is_superuser or "Suivi & Evaluation" in user.groups.all.values_list.flat %}
+        {% if user.is_superuser or can_see_se %}
             <li class="nav-item">
                 <a href="{% url 'se_home' %}" class="nav-link"><i class="bi bi-graph-up-arrow me-2"></i> Suivi & Évaluation</a>
             </li>
         {% endif %}
 
-        {% if user.is_superuser or "Offre et Service" in user.groups.all.values_list.flat %}
+        {% if user.is_superuser or can_see_offres %}
             <li class="nav-item">
                 <a href="{% url 'liste_offres' %}" class="nav-link"><i class="bi bi-briefcase-fill me-2"></i> Offres & Services</a>
             </li>
@@ -188,37 +188,37 @@
                 </li>
             {% endif %}
 
-            {% if user.is_superuser or "Assistant Financier" in user.groups.all.values_list.flat %}
+            {% if user.is_superuser or can_see_finance %}
                 <li class="nav-item">
                     <a href="{% url 'finance_view' %}" class="nav-link"><i class="bi bi-wallet2 me-2"></i> Finance</a>
                 </li>
             {% endif %}
 
-            {% if user.is_superuser or "Logisticien" in user.groups.all.values_list.flat or "Assistant Financier" in user.groups.all.values_list.flat %}
+            {% if user.is_superuser or can_see_logistics %}
                 <li class="nav-item">
                     <a href="{% url 'logistique_home' %}" class="nav-link"><i class="bi bi-box-seam me-2"></i> Logistique</a>
                 </li>
             {% endif %}
 
-            {% if user.is_superuser %}
+            {% if user.is_superuser or can_see_projects %}
                 <li class="nav-item">
                     <a href="{% url 'liste_projets' %}" class="nav-link"><i class="bi bi-briefcase me-2"></i> Projets</a>
                 </li>
             {% endif %}
 
-            {% if user.is_superuser or "Agro animateur" in user.groups.all.values_list.flat %}
+            {% if user.is_superuser or can_see_terrain %}
             <li class="nav-item">
                 <a href="{% url 'liste_formulaires_terrain' %}" class="nav-link"><i class="bi bi-clipboard-check me-2"></i> Terrain</a>
             </li>
             {% endif %}
 
-            {% if user.is_superuser or "Suivi & Evaluation" in user.groups.all.values_list.flat %}
+            {% if user.is_superuser or can_see_se %}
                 <li class="nav-item">
                     <a href="{% url 'se_home' %}" class="nav-link"><i class="bi bi-graph-up-arrow me-2"></i> Suivi & Évaluation</a>
                 </li>
             {% endif %}
 
-            {% if user.is_superuser or "Offre et Service" in user.groups.all.values_list.flat %}
+            {% if user.is_superuser or can_see_offres %}
                 <li class="nav-item">
                     <a href="{% url 'liste_offres' %}" class="nav-link"><i class="bi bi-briefcase-fill me-2"></i> Offres & Services</a>
                 </li>
