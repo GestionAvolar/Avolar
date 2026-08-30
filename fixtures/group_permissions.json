@@ -1,0 +1,1441 @@
+[
+{
+    "model": "auth.permission",
+    "pk": 1,
+    "fields": {
+        "name": "Can add log entry",
+        "content_type": [
+            "admin",
+            "logentry"
+        ],
+        "codename": "add_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 2,
+    "fields": {
+        "name": "Can change log entry",
+        "content_type": [
+            "admin",
+            "logentry"
+        ],
+        "codename": "change_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 3,
+    "fields": {
+        "name": "Can delete log entry",
+        "content_type": [
+            "admin",
+            "logentry"
+        ],
+        "codename": "delete_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 4,
+    "fields": {
+        "name": "Can view log entry",
+        "content_type": [
+            "admin",
+            "logentry"
+        ],
+        "codename": "view_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 5,
+    "fields": {
+        "name": "Can add permission",
+        "content_type": [
+            "auth",
+            "permission"
+        ],
+        "codename": "add_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 6,
+    "fields": {
+        "name": "Can change permission",
+        "content_type": [
+            "auth",
+            "permission"
+        ],
+        "codename": "change_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 7,
+    "fields": {
+        "name": "Can delete permission",
+        "content_type": [
+            "auth",
+            "permission"
+        ],
+        "codename": "delete_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 8,
+    "fields": {
+        "name": "Can view permission",
+        "content_type": [
+            "auth",
+            "permission"
+        ],
+        "codename": "view_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 9,
+    "fields": {
+        "name": "Can add group",
+        "content_type": [
+            "auth",
+            "group"
+        ],
+        "codename": "add_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 10,
+    "fields": {
+        "name": "Can change group",
+        "content_type": [
+            "auth",
+            "group"
+        ],
+        "codename": "change_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 11,
+    "fields": {
+        "name": "Can delete group",
+        "content_type": [
+            "auth",
+            "group"
+        ],
+        "codename": "delete_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 12,
+    "fields": {
+        "name": "Can view group",
+        "content_type": [
+            "auth",
+            "group"
+        ],
+        "codename": "view_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 13,
+    "fields": {
+        "name": "Can add user",
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "codename": "add_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 14,
+    "fields": {
+        "name": "Can change user",
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "codename": "change_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 15,
+    "fields": {
+        "name": "Can delete user",
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "codename": "delete_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 16,
+    "fields": {
+        "name": "Can view user",
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "codename": "view_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 17,
+    "fields": {
+        "name": "Can add content type",
+        "content_type": [
+            "contenttypes",
+            "contenttype"
+        ],
+        "codename": "add_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 18,
+    "fields": {
+        "name": "Can change content type",
+        "content_type": [
+            "contenttypes",
+            "contenttype"
+        ],
+        "codename": "change_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 19,
+    "fields": {
+        "name": "Can delete content type",
+        "content_type": [
+            "contenttypes",
+            "contenttype"
+        ],
+        "codename": "delete_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 20,
+    "fields": {
+        "name": "Can view content type",
+        "content_type": [
+            "contenttypes",
+            "contenttype"
+        ],
+        "codename": "view_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 21,
+    "fields": {
+        "name": "Can add session",
+        "content_type": [
+            "sessions",
+            "session"
+        ],
+        "codename": "add_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 22,
+    "fields": {
+        "name": "Can change session",
+        "content_type": [
+            "sessions",
+            "session"
+        ],
+        "codename": "change_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 23,
+    "fields": {
+        "name": "Can delete session",
+        "content_type": [
+            "sessions",
+            "session"
+        ],
+        "codename": "delete_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 24,
+    "fields": {
+        "name": "Can view session",
+        "content_type": [
+            "sessions",
+            "session"
+        ],
+        "codename": "view_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 25,
+    "fields": {
+        "name": "Can add consultant",
+        "content_type": [
+            "dashboard",
+            "consultant"
+        ],
+        "codename": "add_consultant"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 26,
+    "fields": {
+        "name": "Can change consultant",
+        "content_type": [
+            "dashboard",
+            "consultant"
+        ],
+        "codename": "change_consultant"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 27,
+    "fields": {
+        "name": "Can delete consultant",
+        "content_type": [
+            "dashboard",
+            "consultant"
+        ],
+        "codename": "delete_consultant"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 28,
+    "fields": {
+        "name": "Can view consultant",
+        "content_type": [
+            "dashboard",
+            "consultant"
+        ],
+        "codename": "view_consultant"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 29,
+    "fields": {
+        "name": "Can add entree",
+        "content_type": [
+            "dashboard",
+            "entree"
+        ],
+        "codename": "add_entree"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 30,
+    "fields": {
+        "name": "Can change entree",
+        "content_type": [
+            "dashboard",
+            "entree"
+        ],
+        "codename": "change_entree"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 31,
+    "fields": {
+        "name": "Can delete entree",
+        "content_type": [
+            "dashboard",
+            "entree"
+        ],
+        "codename": "delete_entree"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 32,
+    "fields": {
+        "name": "Can view entree",
+        "content_type": [
+            "dashboard",
+            "entree"
+        ],
+        "codename": "view_entree"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 33,
+    "fields": {
+        "name": "Can add etat besoin",
+        "content_type": [
+            "dashboard",
+            "etatbesoin"
+        ],
+        "codename": "add_etatbesoin"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 34,
+    "fields": {
+        "name": "Can change etat besoin",
+        "content_type": [
+            "dashboard",
+            "etatbesoin"
+        ],
+        "codename": "change_etatbesoin"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 35,
+    "fields": {
+        "name": "Can delete etat besoin",
+        "content_type": [
+            "dashboard",
+            "etatbesoin"
+        ],
+        "codename": "delete_etatbesoin"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 36,
+    "fields": {
+        "name": "Can view etat besoin",
+        "content_type": [
+            "dashboard",
+            "etatbesoin"
+        ],
+        "codename": "view_etatbesoin"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 37,
+    "fields": {
+        "name": "Can add justificatif",
+        "content_type": [
+            "dashboard",
+            "justificatif"
+        ],
+        "codename": "add_justificatif"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 38,
+    "fields": {
+        "name": "Can change justificatif",
+        "content_type": [
+            "dashboard",
+            "justificatif"
+        ],
+        "codename": "change_justificatif"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 39,
+    "fields": {
+        "name": "Can delete justificatif",
+        "content_type": [
+            "dashboard",
+            "justificatif"
+        ],
+        "codename": "delete_justificatif"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 40,
+    "fields": {
+        "name": "Can view justificatif",
+        "content_type": [
+            "dashboard",
+            "justificatif"
+        ],
+        "codename": "view_justificatif"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 41,
+    "fields": {
+        "name": "Can add offre",
+        "content_type": [
+            "dashboard",
+            "offre"
+        ],
+        "codename": "add_offre"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 42,
+    "fields": {
+        "name": "Can change offre",
+        "content_type": [
+            "dashboard",
+            "offre"
+        ],
+        "codename": "change_offre"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 43,
+    "fields": {
+        "name": "Can delete offre",
+        "content_type": [
+            "dashboard",
+            "offre"
+        ],
+        "codename": "delete_offre"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 44,
+    "fields": {
+        "name": "Can view offre",
+        "content_type": [
+            "dashboard",
+            "offre"
+        ],
+        "codename": "view_offre"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 45,
+    "fields": {
+        "name": "Can add sortie",
+        "content_type": [
+            "dashboard",
+            "sortie"
+        ],
+        "codename": "add_sortie"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 46,
+    "fields": {
+        "name": "Can change sortie",
+        "content_type": [
+            "dashboard",
+            "sortie"
+        ],
+        "codename": "change_sortie"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 47,
+    "fields": {
+        "name": "Can delete sortie",
+        "content_type": [
+            "dashboard",
+            "sortie"
+        ],
+        "codename": "delete_sortie"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 48,
+    "fields": {
+        "name": "Can view sortie",
+        "content_type": [
+            "dashboard",
+            "sortie"
+        ],
+        "codename": "view_sortie"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 49,
+    "fields": {
+        "name": "Can add article besoin",
+        "content_type": [
+            "dashboard",
+            "articlebesoin"
+        ],
+        "codename": "add_articlebesoin"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 50,
+    "fields": {
+        "name": "Can change article besoin",
+        "content_type": [
+            "dashboard",
+            "articlebesoin"
+        ],
+        "codename": "change_articlebesoin"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 51,
+    "fields": {
+        "name": "Can delete article besoin",
+        "content_type": [
+            "dashboard",
+            "articlebesoin"
+        ],
+        "codename": "delete_articlebesoin"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 52,
+    "fields": {
+        "name": "Can view article besoin",
+        "content_type": [
+            "dashboard",
+            "articlebesoin"
+        ],
+        "codename": "view_articlebesoin"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 53,
+    "fields": {
+        "name": "Can add detail justificatif",
+        "content_type": [
+            "dashboard",
+            "detailjustificatif"
+        ],
+        "codename": "add_detailjustificatif"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 54,
+    "fields": {
+        "name": "Can change detail justificatif",
+        "content_type": [
+            "dashboard",
+            "detailjustificatif"
+        ],
+        "codename": "change_detailjustificatif"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 55,
+    "fields": {
+        "name": "Can delete detail justificatif",
+        "content_type": [
+            "dashboard",
+            "detailjustificatif"
+        ],
+        "codename": "delete_detailjustificatif"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 56,
+    "fields": {
+        "name": "Can view detail justificatif",
+        "content_type": [
+            "dashboard",
+            "detailjustificatif"
+        ],
+        "codename": "view_detailjustificatif"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 57,
+    "fields": {
+        "name": "Can add presence journaliere",
+        "content_type": [
+            "dashboard",
+            "presencejournaliere"
+        ],
+        "codename": "add_presencejournaliere"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 58,
+    "fields": {
+        "name": "Can change presence journaliere",
+        "content_type": [
+            "dashboard",
+            "presencejournaliere"
+        ],
+        "codename": "change_presencejournaliere"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 59,
+    "fields": {
+        "name": "Can delete presence journaliere",
+        "content_type": [
+            "dashboard",
+            "presencejournaliere"
+        ],
+        "codename": "delete_presencejournaliere"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 60,
+    "fields": {
+        "name": "Can view presence journaliere",
+        "content_type": [
+            "dashboard",
+            "presencejournaliere"
+        ],
+        "codename": "view_presencejournaliere"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 61,
+    "fields": {
+        "name": "Can add projet",
+        "content_type": [
+            "dashboard",
+            "projet"
+        ],
+        "codename": "add_projet"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 62,
+    "fields": {
+        "name": "Can change projet",
+        "content_type": [
+            "dashboard",
+            "projet"
+        ],
+        "codename": "change_projet"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 63,
+    "fields": {
+        "name": "Can delete projet",
+        "content_type": [
+            "dashboard",
+            "projet"
+        ],
+        "codename": "delete_projet"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 64,
+    "fields": {
+        "name": "Can view projet",
+        "content_type": [
+            "dashboard",
+            "projet"
+        ],
+        "codename": "view_projet"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 65,
+    "fields": {
+        "name": "Can add planification",
+        "content_type": [
+            "dashboard",
+            "planification"
+        ],
+        "codename": "add_planification"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 66,
+    "fields": {
+        "name": "Can change planification",
+        "content_type": [
+            "dashboard",
+            "planification"
+        ],
+        "codename": "change_planification"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 67,
+    "fields": {
+        "name": "Can delete planification",
+        "content_type": [
+            "dashboard",
+            "planification"
+        ],
+        "codename": "delete_planification"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 68,
+    "fields": {
+        "name": "Can view planification",
+        "content_type": [
+            "dashboard",
+            "planification"
+        ],
+        "codename": "view_planification"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 69,
+    "fields": {
+        "name": "Can add photo projet",
+        "content_type": [
+            "dashboard",
+            "photoprojet"
+        ],
+        "codename": "add_photoprojet"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 70,
+    "fields": {
+        "name": "Can change photo projet",
+        "content_type": [
+            "dashboard",
+            "photoprojet"
+        ],
+        "codename": "change_photoprojet"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 71,
+    "fields": {
+        "name": "Can delete photo projet",
+        "content_type": [
+            "dashboard",
+            "photoprojet"
+        ],
+        "codename": "delete_photoprojet"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 72,
+    "fields": {
+        "name": "Can view photo projet",
+        "content_type": [
+            "dashboard",
+            "photoprojet"
+        ],
+        "codename": "view_photoprojet"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 73,
+    "fields": {
+        "name": "Can add materiel non consommable",
+        "content_type": [
+            "dashboard",
+            "materielnonconsommable"
+        ],
+        "codename": "add_materielnonconsommable"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 74,
+    "fields": {
+        "name": "Can change materiel non consommable",
+        "content_type": [
+            "dashboard",
+            "materielnonconsommable"
+        ],
+        "codename": "change_materielnonconsommable"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 75,
+    "fields": {
+        "name": "Can delete materiel non consommable",
+        "content_type": [
+            "dashboard",
+            "materielnonconsommable"
+        ],
+        "codename": "delete_materielnonconsommable"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 76,
+    "fields": {
+        "name": "Can view materiel non consommable",
+        "content_type": [
+            "dashboard",
+            "materielnonconsommable"
+        ],
+        "codename": "view_materielnonconsommable"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 77,
+    "fields": {
+        "name": "Can add affectation",
+        "content_type": [
+            "dashboard",
+            "affectation"
+        ],
+        "codename": "add_affectation"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 78,
+    "fields": {
+        "name": "Can change affectation",
+        "content_type": [
+            "dashboard",
+            "affectation"
+        ],
+        "codename": "change_affectation"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 79,
+    "fields": {
+        "name": "Can delete affectation",
+        "content_type": [
+            "dashboard",
+            "affectation"
+        ],
+        "codename": "delete_affectation"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 80,
+    "fields": {
+        "name": "Can view affectation",
+        "content_type": [
+            "dashboard",
+            "affectation"
+        ],
+        "codename": "view_affectation"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 81,
+    "fields": {
+        "name": "Can add rapport projet",
+        "content_type": [
+            "dashboard",
+            "rapportprojet"
+        ],
+        "codename": "add_rapportprojet"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 82,
+    "fields": {
+        "name": "Can change rapport projet",
+        "content_type": [
+            "dashboard",
+            "rapportprojet"
+        ],
+        "codename": "change_rapportprojet"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 83,
+    "fields": {
+        "name": "Can delete rapport projet",
+        "content_type": [
+            "dashboard",
+            "rapportprojet"
+        ],
+        "codename": "delete_rapportprojet"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 84,
+    "fields": {
+        "name": "Can view rapport projet",
+        "content_type": [
+            "dashboard",
+            "rapportprojet"
+        ],
+        "codename": "view_rapportprojet"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 85,
+    "fields": {
+        "name": "Can add terme reference",
+        "content_type": [
+            "dashboard",
+            "termereference"
+        ],
+        "codename": "add_termereference"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 86,
+    "fields": {
+        "name": "Can change terme reference",
+        "content_type": [
+            "dashboard",
+            "termereference"
+        ],
+        "codename": "change_termereference"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 87,
+    "fields": {
+        "name": "Can delete terme reference",
+        "content_type": [
+            "dashboard",
+            "termereference"
+        ],
+        "codename": "delete_termereference"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 88,
+    "fields": {
+        "name": "Can view terme reference",
+        "content_type": [
+            "dashboard",
+            "termereference"
+        ],
+        "codename": "view_termereference"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 89,
+    "fields": {
+        "name": "Can add rapport mission",
+        "content_type": [
+            "dashboard",
+            "rapportmission"
+        ],
+        "codename": "add_rapportmission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 90,
+    "fields": {
+        "name": "Can change rapport mission",
+        "content_type": [
+            "dashboard",
+            "rapportmission"
+        ],
+        "codename": "change_rapportmission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 91,
+    "fields": {
+        "name": "Can delete rapport mission",
+        "content_type": [
+            "dashboard",
+            "rapportmission"
+        ],
+        "codename": "delete_rapportmission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 92,
+    "fields": {
+        "name": "Can view rapport mission",
+        "content_type": [
+            "dashboard",
+            "rapportmission"
+        ],
+        "codename": "view_rapportmission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 93,
+    "fields": {
+        "name": "Can add element projet",
+        "content_type": [
+            "dashboard",
+            "elementprojet"
+        ],
+        "codename": "add_elementprojet"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 94,
+    "fields": {
+        "name": "Can change element projet",
+        "content_type": [
+            "dashboard",
+            "elementprojet"
+        ],
+        "codename": "change_elementprojet"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 95,
+    "fields": {
+        "name": "Can delete element projet",
+        "content_type": [
+            "dashboard",
+            "elementprojet"
+        ],
+        "codename": "delete_elementprojet"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 96,
+    "fields": {
+        "name": "Can view element projet",
+        "content_type": [
+            "dashboard",
+            "elementprojet"
+        ],
+        "codename": "view_elementprojet"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 97,
+    "fields": {
+        "name": "Can add mouvement finance",
+        "content_type": [
+            "dashboard",
+            "mouvementfinance"
+        ],
+        "codename": "add_mouvementfinance"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 98,
+    "fields": {
+        "name": "Can change mouvement finance",
+        "content_type": [
+            "dashboard",
+            "mouvementfinance"
+        ],
+        "codename": "change_mouvementfinance"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 99,
+    "fields": {
+        "name": "Can delete mouvement finance",
+        "content_type": [
+            "dashboard",
+            "mouvementfinance"
+        ],
+        "codename": "delete_mouvementfinance"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 100,
+    "fields": {
+        "name": "Can view mouvement finance",
+        "content_type": [
+            "dashboard",
+            "mouvementfinance"
+        ],
+        "codename": "view_mouvementfinance"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 101,
+    "fields": {
+        "name": "Can add profile",
+        "content_type": [
+            "dashboard",
+            "profile"
+        ],
+        "codename": "add_profile"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 102,
+    "fields": {
+        "name": "Can change profile",
+        "content_type": [
+            "dashboard",
+            "profile"
+        ],
+        "codename": "change_profile"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 103,
+    "fields": {
+        "name": "Can delete profile",
+        "content_type": [
+            "dashboard",
+            "profile"
+        ],
+        "codename": "delete_profile"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 104,
+    "fields": {
+        "name": "Can view profile",
+        "content_type": [
+            "dashboard",
+            "profile"
+        ],
+        "codename": "view_profile"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 105,
+    "fields": {
+        "name": "Can add soumission donnee",
+        "content_type": [
+            "dashboard",
+            "soumissiondonnee"
+        ],
+        "codename": "add_soumissiondonnee"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 106,
+    "fields": {
+        "name": "Can change soumission donnee",
+        "content_type": [
+            "dashboard",
+            "soumissiondonnee"
+        ],
+        "codename": "change_soumissiondonnee"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 107,
+    "fields": {
+        "name": "Can delete soumission donnee",
+        "content_type": [
+            "dashboard",
+            "soumissiondonnee"
+        ],
+        "codename": "delete_soumissiondonnee"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 108,
+    "fields": {
+        "name": "Can view soumission donnee",
+        "content_type": [
+            "dashboard",
+            "soumissiondonnee"
+        ],
+        "codename": "view_soumissiondonnee"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 109,
+    "fields": {
+        "name": "Can add champ formulaire",
+        "content_type": [
+            "dashboard",
+            "champformulaire"
+        ],
+        "codename": "add_champformulaire"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 110,
+    "fields": {
+        "name": "Can change champ formulaire",
+        "content_type": [
+            "dashboard",
+            "champformulaire"
+        ],
+        "codename": "change_champformulaire"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 111,
+    "fields": {
+        "name": "Can delete champ formulaire",
+        "content_type": [
+            "dashboard",
+            "champformulaire"
+        ],
+        "codename": "delete_champformulaire"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 112,
+    "fields": {
+        "name": "Can view champ formulaire",
+        "content_type": [
+            "dashboard",
+            "champformulaire"
+        ],
+        "codename": "view_champformulaire"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 113,
+    "fields": {
+        "name": "Can add formulaire terrain",
+        "content_type": [
+            "dashboard",
+            "formulaireterrain"
+        ],
+        "codename": "add_formulaireterrain"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 114,
+    "fields": {
+        "name": "Can change formulaire terrain",
+        "content_type": [
+            "dashboard",
+            "formulaireterrain"
+        ],
+        "codename": "change_formulaireterrain"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 115,
+    "fields": {
+        "name": "Can delete formulaire terrain",
+        "content_type": [
+            "dashboard",
+            "formulaireterrain"
+        ],
+        "codename": "delete_formulaireterrain"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 116,
+    "fields": {
+        "name": "Can view formulaire terrain",
+        "content_type": [
+            "dashboard",
+            "formulaireterrain"
+        ],
+        "codename": "view_formulaireterrain"
+    }
+},
+{
+    "model": "auth.group",
+    "pk": 1,
+    "fields": {
+        "name": "Agro animateur",
+        "permissions": []
+    }
+},
+{
+    "model": "auth.group",
+    "pk": 2,
+    "fields": {
+        "name": "Logistique",
+        "permissions": [
+            [
+                "add_articlebesoin",
+                "dashboard",
+                "articlebesoin"
+            ],
+            [
+                "view_articlebesoin",
+                "dashboard",
+                "articlebesoin"
+            ],
+            [
+                "add_etatbesoin",
+                "dashboard",
+                "etatbesoin"
+            ],
+            [
+                "change_etatbesoin",
+                "dashboard",
+                "etatbesoin"
+            ],
+            [
+                "add_materielnonconsommable",
+                "dashboard",
+                "materielnonconsommable"
+            ],
+            [
+                "view_materielnonconsommable",
+                "dashboard",
+                "materielnonconsommable"
+            ]
+        ]
+    }
+}
+]
